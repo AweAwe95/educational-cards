@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/educational-cards/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/educational-cards/static/js/main.9a85635b.chunk.js",
+    "main.js.map": "/educational-cards/static/js/main.9a85635b.chunk.js.map",
+    "runtime-main.js": "/educational-cards/static/js/runtime-main.8d0f1abb.js",
+    "runtime-main.js.map": "/educational-cards/static/js/runtime-main.8d0f1abb.js.map",
+    "static/js/2.b3e8d8e2.chunk.js": "/educational-cards/static/js/2.b3e8d8e2.chunk.js",
+    "static/js/2.b3e8d8e2.chunk.js.map": "/educational-cards/static/js/2.b3e8d8e2.chunk.js.map",
+    "static/js/3.d3a5d99e.chunk.js": "/educational-cards/static/js/3.d3a5d99e.chunk.js",
+    "static/js/3.d3a5d99e.chunk.js.map": "/educational-cards/static/js/3.d3a5d99e.chunk.js.map",
+    "index.html": "/educational-cards/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/educational-cards/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.b3e8d8e2.chunk.js.LICENSE.txt": "/educational-cards/static/js/2.b3e8d8e2.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/educational-cards/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8d0f1abb.js",
+    "static/js/2.b3e8d8e2.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.9a85635b.chunk.js"
+  ]
+}
