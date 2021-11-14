@@ -1,4 +1,3 @@
-import {ThunkDispatch} from "redux-thunk";
 import {Dispatch} from "redux";
 import {regApi} from "../api/reg-api";
 
@@ -25,7 +24,6 @@ export const regUserTC = (email: string, password: string) => {
     return (dispatch: Dispatch) => {
         regApi.regUser(email, password)
             .then((res) => {
-                debugger
                 dispatch(regUserAC(res.data))
             })
     }
