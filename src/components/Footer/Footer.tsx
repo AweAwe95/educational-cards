@@ -1,7 +1,8 @@
+import './Footer.css'
 export function Footer() {
     return (
-        <div>
-            Footer
+        <div className="footer">
+            <p>Footer</p>
         </div>
     )
 }

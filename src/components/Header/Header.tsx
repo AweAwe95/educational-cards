@@ -5,7 +5,6 @@ import './Header.css'
 export function Header() {
     return (
         <div className="header">
-            <NavLink to={'#'} className="logo">Site Logo</NavLink>
             <div className="header-right">
                 <NavLink to="/">Profile</NavLink>
                 <NavLink to="/auth">Authorization</NavLink>
