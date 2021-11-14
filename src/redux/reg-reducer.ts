@@ -1,9 +1,13 @@
+import {ThunkDispatch} from "redux-thunk";
+import {Dispatch} from "redux";
+import {regApi} from "../api/reg-api";
+
 const initialState = {}
 
 export const regReducer = (state: RegStateType = initialState, action: ActionsType): RegStateType => {
     switch (action.type) {
-        case "": {
-            return state
+        case "REG-USER": {
+            return {...state, addedUser: action.addedUser}
         }
         default: {
             return state
@@ -11,6 +15,18 @@ export const regReducer = (state: RegStateType = initialState, action: ActionsTy
     }
 }
 
-
 type RegStateType = typeof initialState
-type ActionsType = any
+type ActionsType = ReturnType<typeof regUserAC>
+
+export const regUserAC = (addedUser: any) => ({type: 'REG-USER', addedUser} as const)
+
+
+export const regUserTC = (email: string, password: string) => {
+    return (dispatch: Dispatch) => {
+        regApi.regUser(email, password)
+            .then((res) => {
+                debugger
+                dispatch(regUserAC(res.data))
+            })
+    }
+}
