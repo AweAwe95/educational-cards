@@ -1,7 +1,9 @@
 export function Authorization() {
     return (
         <div>
-            Authorization
+            <input type="text"/>
+            <input type="text"/>
+            <input type="checkbox"/>
         </div>
     )
 }
