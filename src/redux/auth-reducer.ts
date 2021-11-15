@@ -1,6 +1,6 @@
 import {AuthFormikType} from '../components/Main/Authorization/AuthorizationForm';
 import {Dispatch} from 'redux';
-import {LoginDataType, regApi} from '../api/reg-api';
+import {LoginDataType, api} from '../api/api';
 
 const initialState = {
     // data: {
@@ -57,7 +57,7 @@ export const isLoggedInAC = (isLoggedIn: boolean) => {
 
 export const loginTC = (data: AuthFormikType) => {
     return (dispatch: Dispatch) => {
-        regApi.login(data)
+        api.login(data)
             .then(userData => {
                 dispatch(loginAC(userData));
                 dispatch(isLoggedInAC(true))

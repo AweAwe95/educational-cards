@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {regApi} from "../api/reg-api";
+import {api} from "../api/api";
 
 
 const initialState = {"email":""}
@@ -25,7 +25,7 @@ export const recPassReducerAC = (email: any) => ({type: "REC-PASS-REDUCER", emai
 
 export const recPassReducerTC = (email: string) => {
     return (dispatch: Dispatch) => {
-        regApi.emailUser(email)
+        api.emailUser(email)
             .then((res) => {
                 dispatch(recPassReducerAC(res.data))
             })

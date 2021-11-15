@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux';
-import {LoginDataType} from '../../../api/reg-api';
+import {LoginDataType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
 
 export function Profile() {

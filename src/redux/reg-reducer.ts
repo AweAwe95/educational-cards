@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {regApi} from "../api/reg-api";
+import {api} from "../api/api";
 
 const initialState = {
     isRegistered: false,
@@ -30,7 +30,7 @@ export const setRegErrorAC = (regError: boolean) => ({type: 'SET-REG-ERROR', reg
 
 export const regUserTC = (email: string, password: string) => {
     return (dispatch: Dispatch) => {
-        regApi.regUser(email, password)
+        api.regUser(email, password)
             .then(() => dispatch(regUserAC(true)))
             .catch(() => dispatch(setRegErrorAC(true)))
             .finally(() => dispatch(regUserAC(false))

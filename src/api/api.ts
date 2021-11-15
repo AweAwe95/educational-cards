@@ -21,7 +21,7 @@ const instance = axios.create({
     withCredentials: true,
 })
 
-export const regApi = {
+export const api = {
     regUser(email: string, password: string) {
         return instance.post('/auth/register', {email,password})
     },
