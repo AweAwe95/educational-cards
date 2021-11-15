@@ -8,5 +8,8 @@ const instance = axios.create({
 export const regApi = {
     regUser(email: string, password: string) {
         return instance.post('/auth/register', {email,password})
+    },
+    emailUser(email: string) {
+        return instance.post('/auth/forgot', {email})
     }
 }
