@@ -1,9 +1,13 @@
-const initialState = {}
+import {Dispatch} from "redux";
+import {regApi} from "../api/reg-api";
+
+
+const initialState = {"email":""}
 
 export const recPassReducer = (state: RecPassStateType = initialState, action: ActionsType): RecPassStateType => {
     switch (action.type) {
-        case "": {
-            return state
+        case "REC-PASS-REDUCER": {
+            return {...state, email: action.email}
         }
         default: {
             return state
@@ -12,5 +16,18 @@ export const recPassReducer = (state: RecPassStateType = initialState, action: A
 }
 
 
+
 type RecPassStateType = typeof initialState
-type ActionsType = any
+type ActionsType = ReturnType<typeof recPassReducerAC>
+
+export const recPassReducerAC = (email: any) => ({type: "REC-PASS-REDUCER", email} as const)
+
+
+export const recPassReducerTC = (email: string) => {
+    return (dispatch: Dispatch) => {
+        regApi.emailUser(email)
+            .then((res) => {
+                dispatch(recPassReducerAC(res.data))
+            })
+    }
+}
