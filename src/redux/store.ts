@@ -1,6 +1,5 @@
 import {authReducer} from "./auth-reducer";
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {newPassReducer} from "./newPass-reducer";
 import {profileReducer} from "./profile-reducer";
 import {recPassReducer} from "./recPass-reducer";
 import {regReducer} from "./reg-reducer";
@@ -8,7 +7,6 @@ import thunkMiddleware from 'redux-thunk'
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    newPass: newPassReducer,
     profile: profileReducer,
     recPass: recPassReducer,
     reg: regReducer

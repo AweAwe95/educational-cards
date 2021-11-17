@@ -25,8 +25,11 @@ export const api = {
     regUser(email: string, password: string) {
         return instance.post('/auth/register', {email,password})
     },
-    emailUser(email: string) {
-        return instance.post('/auth/forgot', {email})
+    emailUser(email: string, from:string, message: string) {
+        return instance.post('/auth/forgot', {email, from, message})
+    },
+    resetUser(password: string, resetPasswordToken: string | undefined) {
+        return instance.post('/auth/set-new-password', {password, resetPasswordToken})
     },
     login(data: AuthFormikType) {
         return instance.post<LoginDataType>('/auth/login', {...data})

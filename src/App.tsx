@@ -21,7 +21,7 @@ function App() {
                     <Route path={'/signup'} element={<Registration/>}></Route>
                     <Route path={'/'} element={<Profile/>}></Route>
                     <Route path={'/password-recovery'} element={<RecoveryPassword/>}></Route>
-                    <Route path={'/new-password'} element={<NewPassword/>}></Route>
+                    <Route path={'/new-password/:serverToken'} element={<NewPassword/>}></Route>
                 </Routes>
             </div>
             <Footer/>
