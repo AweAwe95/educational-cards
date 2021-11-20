@@ -63,7 +63,7 @@ export const RegistrationForm = () => {
                         : null
                     }
                     {isLoading && <Loader/>}
-                    <button type={"submit"} className="registerBtn">Submit</button>
+                    <button type={"submit"} className="registerBtn" disabled={isLoading}>Submit</button>
                 </form>
                 {registrationError && <h3 className={'regError'}>SOMETHING GOING WRONG</h3>}
             </div>

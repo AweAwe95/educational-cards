@@ -50,7 +50,7 @@ export const RecoveryPasswordForm = () => {
                     : null
                 }
                 {isLoading && <Loader/>}
-                <button type="submit" className={'recPassBtn'}>Send instruction</button>
+                <button type="submit" className={'recPassBtn'} disabled={isLoading}>Send instruction</button>
             </form>
             {recPassError && <h3 className={'recPassError'}>SOMETHING GOING WRONG</h3>}
         </div>

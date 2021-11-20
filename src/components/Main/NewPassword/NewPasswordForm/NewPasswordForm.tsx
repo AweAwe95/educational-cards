@@ -48,7 +48,7 @@ export const NewPasswordForm = () => {
                     : null
                 }
                 {isLoading && <Loader/>}
-                <button type="submit" className={'newPassBtn'}>Create new password</button>
+                <button type="submit" className={'newPassBtn'} disabled={isLoading}>Create new password</button>
 
             </form>
         </div>

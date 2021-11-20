@@ -73,7 +73,7 @@ export const AuthorizationForm = () => {
                     <label htmlFor="checkbox"><b>Remember me</b></label>
                 </div>
                 {isLoading && <Loader/>}
-                <button type={'submit'} className="authBtn">Login</button>
+                <button type={'submit'} className="authBtn" disabled={isLoading}>Login</button>
             </form>
             {authorizationError && <h3 className={'authError'}>SOMETHING GOING WRONG</h3>}
         </div>
