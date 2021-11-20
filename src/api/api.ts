@@ -1,20 +1,5 @@
 import axios from "axios";
-import { AuthFormikType } from "../components/Main/Authorization/AuthorizationForm";
-
-export type LoginDataType = {
-    created: string
-    email: string
-    isAdmin: boolean
-    name: string
-    publicCardPacksCount: number
-    rememberMe: boolean
-    token: string
-    tokenDeathTime: number
-    updated: string
-    verified: boolean
-    __v: number
-    _id: string
-}
+import { AuthFormikType } from "../components/Main/Authorization/AuthorizationForm/AuthorizationForm";
 
 const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0",
@@ -37,4 +22,20 @@ export const api = {
                 return res.data
             })
     }
+}
+
+
+export type LoginDataType = {
+    created: string
+    email: string
+    isAdmin: boolean
+    name: string
+    publicCardPacksCount: number
+    rememberMe: boolean
+    token: string
+    tokenDeathTime: number
+    updated: string
+    verified: boolean
+    __v: number
+    _id: string
 }
