@@ -5,12 +5,14 @@ import {recPassTC, setRecPassErrorAC} from "../../../../redux/recoveryPassword-r
 import {AuthFormikType} from "../../Authorization/AuthorizationForm/AuthorizationForm";
 import {AppRootStateType} from "../../../../redux/store";
 import "./RecoveryPasswordForm.css"
+import {Loader} from "../../../Loader/Loader";
 
 export const RecoveryPasswordForm = () => {
     const dispatch = useDispatch()
     const from = useSelector<AppRootStateType, string>(state => state.recoveryPassword.from)
     const message = useSelector<AppRootStateType, string>(state => state.recoveryPassword.message)
     const recPassError = useSelector<AppRootStateType, boolean>(state => state.recoveryPassword.recPassError)
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
 
     const formik = useFormik({
         initialValues: {
@@ -34,20 +36,21 @@ export const RecoveryPasswordForm = () => {
     return (
         <div className="recoveryPasswordFormContainer">
             <form onSubmit={formik.handleSubmit}>
-                    <label htmlFor={'email'}><b>Forgot your password?</b></label>
-                    <input
-                        type="email"
-                        placeholder="Type your Email"
-                        {...formik.getFieldProps('email')}
-                        onFocus={() => dispatch(setRecPassErrorAC(false))}
-                        className="recPassInput"
-                        autoFocus
-                    />
-                    {formik.errors.email && formik.touched.email
-                        ? <span style={{color: 'red'}}>{formik.errors.email}</span>
-                        : null
-                    }
-                    <button type="submit" className={'recPassBtn'}>Send instruction</button>
+                <label htmlFor={'email'}><b>Forgot your password?</b></label>
+                <input
+                    type="email"
+                    placeholder="Type your Email"
+                    {...formik.getFieldProps('email')}
+                    onFocus={() => dispatch(setRecPassErrorAC(false))}
+                    className="recPassInput"
+                    autoFocus
+                />
+                {formik.errors.email && formik.touched.email
+                    ? <div style={{color: 'red'}}>{formik.errors.email}</div>
+                    : null
+                }
+                {isLoading && <Loader/>}
+                <button type="submit" className={'recPassBtn'}>Send instruction</button>
             </form>
             {recPassError && <h3 className={'recPassError'}>SOMETHING GOING WRONG</h3>}
         </div>

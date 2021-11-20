@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {api} from "../api/api";
+import {setLoaderAC} from "./app-reducer";
 
 const initialState = {
     isReg: false,
@@ -27,10 +28,14 @@ export const setRegErrorAC = (regError: boolean) => ({type: "SIGNUP/SET-REG-ERRO
 
 export const regUserTC = (email: string, password: string) => {
     return (dispatch: Dispatch) => {
+        dispatch(setLoaderAC(true))
         api.regUser(email, password)
             .then(() => dispatch(regUserAC(true)))
             .catch(() => dispatch(setRegErrorAC(true)))
-            .finally(() => dispatch(regUserAC(false)))
+            .finally(() => {
+                dispatch(regUserAC(false))
+                dispatch(setLoaderAC(false))
+            })
     }
 }
 

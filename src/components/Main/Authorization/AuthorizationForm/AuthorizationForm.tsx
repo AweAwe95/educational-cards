@@ -4,6 +4,7 @@ import {loginTC, setAuthErrorAC} from '../../../../redux/authorization-reducer';
 import React from "react";
 import {AppRootStateType} from "../../../../redux/store";
 import './AuthorizationForm.css'
+import {Loader} from "../../../Loader/Loader";
 
 export type AuthFormikType = {
     email?: string
@@ -14,6 +15,7 @@ export type AuthFormikType = {
 export const AuthorizationForm = () => {
     const dispatch = useDispatch();
     const authorizationError = useSelector<AppRootStateType, boolean>(state => state.authorization.authError)
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
 
     const formik = useFormik({
         initialValues: {
@@ -45,7 +47,7 @@ export const AuthorizationForm = () => {
                 <label htmlFor="email"><b>Email Address</b></label>
                 <input
                     type="email"
-                    placeholder={'Enter your email'}
+                    placeholder={'Enter your Email'}
                     {...formik.getFieldProps('email')}
                     onFocus={() => dispatch(setAuthErrorAC(false))}
                     className={"authInput"}
@@ -57,7 +59,7 @@ export const AuthorizationForm = () => {
                 <label htmlFor="password"><b>Password</b></label>
                 <input
                     type="password"
-                    placeholder={'Enter your password'}
+                    placeholder={'Enter your Password'}
                     {...formik.getFieldProps('password')}
                     onFocus={() => dispatch(setAuthErrorAC(false))}
                     className={"authInput"}
@@ -70,6 +72,7 @@ export const AuthorizationForm = () => {
                     <input type="checkbox"/>
                     <label htmlFor="checkbox"><b>Remember me</b></label>
                 </div>
+                {isLoading && <Loader/>}
                 <button type={'submit'} className="authBtn">Login</button>
             </form>
             {authorizationError && <h3 className={'authError'}>SOMETHING GOING WRONG</h3>}

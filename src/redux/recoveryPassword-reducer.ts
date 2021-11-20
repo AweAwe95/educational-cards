@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {api} from "../api/api";
+import {setLoaderAC} from "./app-reducer";
 
 const initialState = {
     email: "",
@@ -29,20 +30,30 @@ export const recoveryPasswordReducer = (state: RecPassStateType = initialState, 
 
 export const recPassAC = (email: string) => ({type: "RECOVERY/REC-PASS", email} as const)
 export const isPassRecAC = (isPasRec: boolean) => ({type: "RECOVERY/IS-PASS-REC", isPasRec} as const)
-export const setRecPassErrorAC = (recPassError: boolean) => ({type: "RECOVERY/SET-REC-PASS-ERROR", recPassError} as const)
+export const setRecPassErrorAC = (recPassError: boolean) => ({
+    type: "RECOVERY/SET-REC-PASS-ERROR",
+    recPassError
+} as const)
 
 export const recPassTC = (email: string, from: string, message: string) => {
-    return () => {
+    return (dispatch: Dispatch) => {
+        dispatch(setLoaderAC(true))
         api.emailUser(email, from, message)
             .then()
+            .finally(() => dispatch(setLoaderAC(false)))
     }
 }
 export const newPassTC = (password: string, resetPasswordToken: string | undefined) => {
     return (dispatch: Dispatch) => {
+        dispatch(setLoaderAC(true))
         api.resetUser(password, resetPasswordToken)
             .then(() => dispatch(isPassRecAC(true)))
             .catch(() => dispatch(setRecPassErrorAC(true)))
-            .finally(() => dispatch(isPassRecAC(false)))
+            .finally(() => {
+                    dispatch(setLoaderAC(false))
+                    dispatch(isPassRecAC(false))
+                }
+            )
     }
 }
 

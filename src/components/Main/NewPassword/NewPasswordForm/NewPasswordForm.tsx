@@ -1,13 +1,17 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import {newPassTC} from "../../../../redux/recoveryPassword-reducer";
 import React from "react";
 import {AuthFormikType} from "../../Authorization/AuthorizationForm/AuthorizationForm";
 import "./NewPasswordForm.css";
+import {Loader} from "../../../Loader/Loader";
+import {AppRootStateType} from "../../../../redux/store";
 
 export const NewPasswordForm = () => {
     const dispatch = useDispatch()
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
+
     const params = useParams()
     const serverToken = params.serverToken
 
@@ -43,6 +47,7 @@ export const NewPasswordForm = () => {
                     ? <span style={{color: 'red'}}>{formik.errors.password}</span>
                     : null
                 }
+                {isLoading && <Loader/>}
                 <button type="submit" className={'newPassBtn'}>Create new password</button>
 
             </form>

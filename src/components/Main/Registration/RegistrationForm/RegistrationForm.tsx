@@ -5,10 +5,12 @@ import {regUserTC, setRegErrorAC} from "../../../../redux/registration-reducer";
 import "./RegistrationForm.css"
 import {AppRootStateType} from "../../../../redux/store";
 import {AuthFormikType} from "../../Authorization/AuthorizationForm/AuthorizationForm";
+import {Loader} from "../../../Loader/Loader";
 
 export const RegistrationForm = () => {
         const dispatch = useDispatch()
         const registrationError = useSelector<AppRootStateType, boolean>(state => state.registration.regError)
+        const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
 
         const formik = useFormik({
             initialValues: {
@@ -42,12 +44,12 @@ export const RegistrationForm = () => {
                         {...formik.getFieldProps('email')}
                         onFocus={() => dispatch(setRegErrorAC(false))}
                         className="registerInput"
-                        autoFocus
                     />
                     {formik.errors.email && formik.touched.email
-                        ? <span style={{color: 'red'}}>{formik.errors.email}</span>
+                        ? <div style={{color: 'red'}}>{formik.errors.email}</div>
                         : null
                     }
+                    <br/>
                     <label htmlFor="password"><b>Password</b></label>
                     <input
                         type="password"
@@ -57,9 +59,10 @@ export const RegistrationForm = () => {
                         className="registerInput"
                     />
                     {formik.errors.password && formik.touched.password
-                        ? <span style={{color: 'red'}}>{formik.errors.password}</span>
+                        ? <div style={{color: 'red'}}>{formik.errors.password}</div>
                         : null
                     }
+                    {isLoading && <Loader/>}
                     <button type={"submit"} className="registerBtn">Submit</button>
                 </form>
                 {registrationError && <h3 className={'regError'}>SOMETHING GOING WRONG</h3>}

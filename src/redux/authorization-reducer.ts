@@ -1,6 +1,7 @@
 import {AuthFormikType} from '../components/Main/Authorization/AuthorizationForm/AuthorizationForm';
 import {Dispatch} from 'redux';
 import {LoginDataType, api} from '../api/api';
+import {setLoaderAC} from "./app-reducer";
 
 const initialState = {
     data: {
@@ -51,12 +52,17 @@ export const setAuthErrorAC = (authError: boolean) => ({type: 'AUTH/SET-AUTH-ERR
 
 export const loginTC = (data: AuthFormikType) => {
     return (dispatch: Dispatch) => {
+        dispatch(setLoaderAC(true))
         api.login(data)
             .then(userData => {
                 dispatch(loginAC(userData));
                 dispatch(isLoggedInAC(true))
             })
-            .catch(() => dispatch(setAuthErrorAC(true)));
+            .catch(() => dispatch(setAuthErrorAC(true)))
+            .finally(() => {
+                dispatch(isLoggedInAC(false))
+                dispatch(setLoaderAC(false))
+            })
     };
 };
 
