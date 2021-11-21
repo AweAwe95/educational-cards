@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AuthFormikType } from "../components/Main/Authorization/AuthorizationForm/AuthorizationForm";
+import {AuthFormikType} from "../components/Main/Authorization/AuthorizationForm/AuthorizationForm";
 
 const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0",
@@ -8,9 +8,9 @@ const instance = axios.create({
 
 export const api = {
     regUser(email: string, password: string) {
-        return instance.post('/auth/register', {email,password})
+        return instance.post('/auth/register', {email, password})
     },
-    emailUser(email: string, from:string, message: string) {
+    emailUser(email: string, from: string, message: string) {
         return instance.post('/auth/forgot', {email, from, message})
     },
     resetUser(password: string, resetPasswordToken: string | undefined) {
@@ -21,21 +21,27 @@ export const api = {
             .then(res => {
                 return res.data
             })
+    },
+    isAuthorized() {
+        return instance.post('/auth/me', {})
+    },
+    logout() {
+        return instance.delete('/auth/me', {})
     }
 }
 
 
 export type LoginDataType = {
-    created: string
-    email: string
-    isAdmin: boolean
-    name: string
-    publicCardPacksCount: number
-    rememberMe: boolean
-    token: string
-    tokenDeathTime: number
-    updated: string
-    verified: boolean
-    __v: number
-    _id: string
+    created?: string
+    email?: string
+    isAdmin?: boolean
+    name?: string
+    publicCardPacksCount?: number
+    rememberMe?: boolean
+    token?: string
+    tokenDeathTime?: number
+    updated?: string
+    verified?: boolean
+    __v?: number
+    _id?: string
 }

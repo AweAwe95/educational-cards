@@ -4,20 +4,7 @@ import {LoginDataType, api} from '../api/api';
 import {setLoaderAC} from "./app-reducer";
 
 const initialState = {
-    data: {
-        created: '',
-        email: '',
-        isAdmin: false,
-        name: '',
-        publicCardPacksCount: 0,
-        rememberMe: false,
-        token: '',
-        tokenDeathTime: 0,
-        updated: '',
-        verified: false,
-        __v: 0,
-        _id: '',
-    },
+    data: {} as LoginDataType,
     isLoggedIn: false,
     authError: false
 };
@@ -60,7 +47,30 @@ export const loginTC = (data: AuthFormikType) => {
             })
             .catch(() => dispatch(setAuthErrorAC(true)))
             .finally(() => {
+                dispatch(setLoaderAC(false))
+            })
+    };
+};
+export const isAuthorizedTC = () => {
+    return (dispatch: Dispatch) => {
+        api.isAuthorized()
+            .then(response => {
+                dispatch(loginAC(response.data))
+                dispatch(isLoggedInAC(true))
+            })
+            .catch(() => dispatch(isLoggedInAC(false)))
+    }
+}
+export const logoutTC = () => {
+    return (dispatch: Dispatch) => {
+        dispatch(setLoaderAC(true))
+        api.logout()
+            .then(() => {
                 dispatch(isLoggedInAC(false))
+                dispatch(loginAC({}))
+            })
+            .catch()
+            .finally(() => {
                 dispatch(setLoaderAC(false))
             })
     };
