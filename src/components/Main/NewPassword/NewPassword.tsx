@@ -2,10 +2,8 @@ import React from 'react';
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from "react-redux";
 import {newPassReducerTC, recPassReducer, recPassReducerTC} from "../../../redux/recPass-reducer";
-import {AuthFormikType} from "../Authorization/AuthorizationForm";
 import {AppRootStateType} from "../../../redux/store";
 import {Navigate, useParams} from "react-router-dom";
-import {log} from "util";
 
 export const NewPassword = () => {
     const dispatch = useDispatch()
