@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {LoginDataType, api, CardPacksResType} from '../api/api';
+import {api, CardPacksResType} from '../api/api';
 
 const initialState = {
     cardPacks: [{
@@ -15,7 +15,7 @@ const initialState = {
     maxCardsCount: 0,
     minCardsCount: 0,
     page: 1,
-    pageCount: 4,
+    pageCount: 15,
 };
 
 export const cardPacksReducer = (state: CardPacksResType = initialState, action: CardStateType): CardPacksResType => {

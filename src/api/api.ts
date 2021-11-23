@@ -59,6 +59,6 @@ export const api = {
             })
     },
     card() {
-        return instance.get<CardPacksResType>('/cards/pack', {})
+        return instance.get<CardPacksResType>('/cards/pack/?pageCount=20', {})
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {CardPacksResType, CardPackType, LoginDataType} from '../../../api/api';
+import {CardPackType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
 import {CardTable} from "./CardTable";
 import {TableCard} from "./TableCard";
