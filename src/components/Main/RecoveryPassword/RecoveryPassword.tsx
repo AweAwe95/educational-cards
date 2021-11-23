@@ -1,7 +1,10 @@
-import {RecoveryPasswordForm} from "./RecoveryPasswordForm";
+import {RecoveryPasswordForm} from "./RecoveryPasswordForm/RecoveryPasswordForm";
+import "./RecoveryPassword.css"
+
+
 export function RecoveryPassword() {
     return (
-        <div className={""}>
+        <div className={"recoveryPasswordContainer"}>
             <RecoveryPasswordForm/>
         </div>
     )

@@ -1,15 +1,19 @@
-import {authReducer} from "./auth-reducer";
+import {authorizationReducer} from "./authorization-reducer";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {profileReducer} from "./profile-reducer";
-import {recPassReducer} from "./recPass-reducer";
-import {regReducer} from "./reg-reducer";
+import {recoveryPasswordReducer} from "./recoveryPassword-reducer";
+import {registrationReducer} from "./registration-reducer";
+import {cardPacksReducer} from "./cardPacks-reducer";
 import thunkMiddleware from 'redux-thunk'
+import {appReducer} from "./app-reducer";
 
 const rootReducer = combineReducers({
-    auth: authReducer,
+    app: appReducer,
+    authorization: authorizationReducer,
     profile: profileReducer,
-    recPass: recPassReducer,
-    reg: regReducer
+    recoveryPassword: recoveryPasswordReducer,
+    registration: registrationReducer,
+    cardPacks: cardPacksReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))

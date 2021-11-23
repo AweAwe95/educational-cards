@@ -11,6 +11,5 @@ export const profileReducer = (state: ProfileStateType = initialState, action: A
     }
 }
 
-
 type ProfileStateType = typeof initialState
 type ActionsType = any
