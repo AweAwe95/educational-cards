@@ -2,10 +2,11 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardPackType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
-import {CardTable} from "./CardTable";
-import {TableCard} from "./TableCard";
-import {getCardTC} from "../../../redux/cardPacks-reducer";
-
+import {CardTable} from './CardTable';
+import {TableCard} from './TableCard';
+import {getCardTC} from '../../../redux/cardPacks-reducer';
+import {Paginator} from '../../Pagination/Pagination';
+import {AddItemForm} from '../../SearchInput/SearchInput';
 
 
 export const Cards = () => {
@@ -15,14 +16,16 @@ export const Cards = () => {
 
     const getCard = () => {
         dispatch(getCardTC());
-    }
+    };
 
     return (
         <div>
-           <button type="button" onClick={getCard}>
-               GET
-           </button>
-            <TableCard model={CardTable()} data={data} />
+            <AddItemForm/>
+            <button type='button' onClick={getCard}>
+                GET
+            </button>
+            <TableCard model={CardTable()} data={data}/>
+            <Paginator/>
         </div>
     );
-}
+};
