@@ -1,6 +1,8 @@
 import axios from "axios";
 import {AuthFormikType} from "../components/Main/Authorization/AuthorizationForm/AuthorizationForm";
 
+
+
 const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0/",
     withCredentials: true,
@@ -27,6 +29,9 @@ export const api = {
     },
     logout() {
         return instance.delete('auth/me', {})
+    },
+    card() {
+        return instance.get<CardPacksResType>('cards/pack/?pageCount=20', {})
     }
 }
 
@@ -44,4 +49,23 @@ export type LoginDataType = {
     verified?: boolean
     __v?: number
     _id?: string
+}
+
+export type CardPackType = {
+    _id: string
+    user_id: string
+    name: string
+    cardsCount: number
+    created: string
+    updated: string
+    user_name: string
+}
+
+export type CardPacksResType = {
+    cardPacks: CardPackType[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
 }

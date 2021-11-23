@@ -18,6 +18,7 @@ export function Header() {
                 <NavLink to="/signup">Registration</NavLink>
                 <NavLink to="/password-recovery">Password Recovery</NavLink>
                 <NavLink to="/new-password">New Password</NavLink>
+                <NavLink to="/cards">Сards</NavLink>
                 <NavLink to="/error-404">Error 404</NavLink>
             </div>
             <div className="header-right">
