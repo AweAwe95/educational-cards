@@ -16,14 +16,24 @@ export type LoginDataType = {
     __v: number
     _id: string
 }
-export type CardPacksType = {
-    cardPacks: Array<LoginDataType>;
-    cardPacksTotalCount: number;
-    maxCardsCount: number;
-    minCardsCount: number;
-    page: number;
-    pageCount: number;
-    token: string;
+
+export type CardPackType = {
+    _id: string
+    user_id: string
+    name: string
+    cardsCount: number
+    created: string
+    updated: string
+    user_name: string
+}
+
+export type CardPacksResType = {
+    cardPacks: CardPackType[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
 }
 
 
@@ -49,6 +59,6 @@ export const api = {
             })
     },
     card() {
-        return instance.post<CardPacksType>('/cards/pack')
+        return instance.get<CardPacksResType>('/cards/pack', {})
     }
 }

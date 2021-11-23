@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {LoginDataType} from '../../../api/api';
+import {CardPacksResType, CardPackType, LoginDataType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
 import {CardTable} from "./CardTable";
 import {TableCard} from "./TableCard";
@@ -10,7 +10,7 @@ import {getCardTC} from "../../../redux/cardPacks-reducer";
 
 export const Cards = () => {
     const dispatch = useDispatch();
-    const data = useSelector<AppRootStateType, LoginDataType>(state => state.cardPacks.data);
+    const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
     console.log(data);
 
     const getCard = () => {

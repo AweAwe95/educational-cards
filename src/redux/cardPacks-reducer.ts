@@ -1,25 +1,24 @@
 import {Dispatch} from 'redux';
-import {LoginDataType, api, CardPacksType} from '../api/api';
+import {LoginDataType, api, CardPacksResType} from '../api/api';
 
 const initialState = {
-    // data: {
-    //     created: '',
-    //     email: '',
-    //     isAdmin: false,
-    //     name: '',
-    //     publicCardPacksCount: 0,
-    //     rememberMe: false,
-    //     token: '',
-    //     tokenDeathTime: 0,
-    //     updated: '',
-    //     verified: false,
-    //     __v: 0,
-    //     _id: '',
-    // },
-    data: {} as LoginDataType,
+    cardPacks: [{
+        _id: '',
+        user_id: '',
+        name: '',
+        cardsCount: 0,
+        created: '',
+        updated: '',
+        user_name: '',
+    }],
+    cardPacksTotalCount: 0,
+    maxCardsCount: 0,
+    minCardsCount: 0,
+    page: 1,
+    pageCount: 4,
 };
 
-export const cardPacksReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
+export const cardPacksReducer = (state: CardPacksResType = initialState, action: CardStateType): CardPacksResType => {
     switch (action.type) {
         case 'SET_CARD_PACKS': {
             return { ...state, ...action.data };
@@ -29,7 +28,7 @@ export const cardPacksReducer = (state: AuthStateType = initialState, action: Ac
     }
 };
 
-export const setCardPacksAC = (data: CardPacksType) =>
+export const setCardPacksAC = (data: CardPacksResType) =>
     ({ type: 'SET_CARD_PACKS', data } as const);
 
 
@@ -51,5 +50,5 @@ export const getCardTC = () => {
 };
 
 
-export type ActionsType = ReturnType<typeof setCardPacksAC>;
-type AuthStateType = typeof initialState
+export type CardPacksActionTypes = ReturnType<typeof setCardPacksAC>;
+type CardStateType =  CardPacksActionTypes
