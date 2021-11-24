@@ -1,12 +1,12 @@
 import {Dispatch} from 'redux';
 
 const initialState = {
-    packName: '',
+    packName: 'Hey',
     min: 1,
-    max: 10,
+    max: 100,
     sortPacks: {
         firstNumber: 0,
-        secondDescription: {} as SecondDescriptionType
+        secondDescription: 'name'
     },
     page: 1,
     pageCount: 4,
@@ -17,6 +17,7 @@ const initialState = {
 export const packsFilterReducer = (state: PacksFilterReducerStateType = initialState, action: ActionsType): PacksFilterReducerStateType => {
     switch (action.type) {
         case 'PACK-FILTER/SET-PACKNAME': {
+            debugger
             return {...state, packName: action.packName};
         }
         case 'PACK-FILTER/SET-MINCARDS': {
@@ -38,10 +39,10 @@ export const packsFilterReducer = (state: PacksFilterReducerStateType = initialS
             return {...state, pageCount: action.pageCount};
         }
         case 'PACK-FILTER/SET-CURRENT-PAGE': {
-            return {...state,  currentPage: action.currentPageCount};
+            return {...state, currentPage: action.currentPageCount};
         }
         case 'PACK-FILTER/SET-TOTAL-COUNT-PAGE': {
-            return {...state,  totalCountPage: action.totalCountPage};
+            return {...state, totalCountPage: action.totalCountPage};
         }
         default: {
             return state;
@@ -73,7 +74,7 @@ export const setFirstNumberSort = (firstNumber: number) => {
         firstNumber
     } as const;
 };
-export const setSecondDescriptionSort = (secondDescription: SecondDescriptionType) => {
+export const setSecondDescriptionSort = (secondDescription: string) => {
     return {
         type: 'PACK-FILTER/SET-SECOND-DESCRIPTION-SORT',
         secondDescription
@@ -121,10 +122,3 @@ type ActionsType = ReturnType<typeof setPackName>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalCountPage>
 
-
-export type SecondDescriptionType = 'cardPacks'
-    | 'cardPacksTotalCount'
-    | 'maxCardsCount'
-    | 'minCardsCount'
-    | 'page'
-    | 'pageCount'
