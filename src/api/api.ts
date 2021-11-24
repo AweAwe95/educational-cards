@@ -30,8 +30,29 @@ export const api = {
     logout() {
         return instance.delete('auth/me', {})
     },
-    card() {
+    getCardPacks() {
         return instance.get<CardPacksResType>('cards/pack/?pageCount=20', {})
+    },
+    createCardPacks(name: string) {
+        return instance.post<CardPacksResType>('cards/pack', {name})
+    },
+    deleteCardPacks(id: string) {
+        return instance.delete<CardPacksResType>(`cards/pack/${id}`)
+    },
+    updateCardPacks(id: string, title: string) {
+        return instance.put<CardPacksResType>(`cards/pack/${id}`, {title})
+    },
+    getCard(packsId: string) {
+        return instance.get<CardPacksResType>(`cards/${packsId}/card`)
+    },
+    createCard(packsId: string, name: string) {
+        return instance.post<CardPacksResType>(`cards/${packsId}/card`, {name})
+    },
+    deleteCard(packsId: string, cardId: string) {
+        return instance.delete<CardPacksResType>(`cards/${packsId}/card/${cardId}`)
+    },
+    updateCard(packsId: string, cardId: string, question: string) {
+        return instance.put<CardPacksResType>(`cards/${packsId}/card/${cardId}`, {question})
     }
 }
 

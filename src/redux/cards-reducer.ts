@@ -23,6 +23,15 @@ export const cardPacksReducer = (state: CardPacksResType = initialState, action:
         case 'SET_CARD_PACKS': {
             return { ...state, ...action.data };
         }
+        case 'SET_CARD_PACKS': {
+            return { ...state, ...action.data };
+        }
+        case 'SET_CARD_PACKS': {
+            return { ...state, ...action.data };
+        }
+        case 'SET_CARD_PACKS': {
+            return { ...state, ...action.data };
+        }
         default:
             return state;
     }
@@ -32,9 +41,9 @@ export const setCardPacksAC = (data: CardPacksResType) =>
     ({ type: 'SET_CARD_PACKS', data } as const);
 
 
-export const getCardTC = () => {
+export const getCardTC = (name) => {
     return (dispatch: Dispatch) => {
-        api.getCardPacks()
+        api.getCard()
             .then(res => {
                 console.dir(res);
                 dispatch(setCardPacksAC(res.data));
