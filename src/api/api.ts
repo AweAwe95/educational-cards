@@ -31,8 +31,11 @@ export const api = {
         return instance.delete('auth/me', {})
     },
     getCardPacks() {
-        return instance.get<CardPacksResType>('cards/pack/?pageCount=20', {})
+        return instance.get<CardPacksResType>('cards/pack')
     },
+    // getCardPacks(pageCount?: number, user_id?: string) {
+    //     return instance.get<CardPacksResType>(`cards/pack?pageCount=${pageCount}&user_id=${user_id}`)
+    // },
     createCardPacks(name: string) {
         return instance.post<CardPacksResType>('cards/pack', {name})
     },
@@ -89,4 +92,33 @@ export type CardPacksResType = {
     minCardsCount: number
     page: number
     pageCount: number
+}
+
+export type CardType = {
+    answer: string
+    question: string
+    cardsPack_id: string
+    grade: number
+    comments: string
+    created: string
+    updated: string
+    more_id: string
+    rating: number
+    shots: number
+    type: string
+    user_id: string
+    __v: number
+    _id: string
+}
+
+export type CardsResType = {
+    cards: CardType[]
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    page: number
+    pageCount: number
+    packUserId: number
+    token: string
+    tokenDeathTime: number
 }

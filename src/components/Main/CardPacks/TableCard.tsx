@@ -70,6 +70,9 @@ export const TableCard: React.FC<ITableProps> = (
                 }}
             >
                 {model.map((m: ITableModel, index: number) => m.title(index))}
+                <button type="button" >
+                    add
+                </button>
             </div>
 
             <div
@@ -92,6 +95,12 @@ export const TableCard: React.FC<ITableProps> = (
                         }}
                     >
                         {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
+                        <button type="button" >
+                            del
+                        </button>
+                        <button type="button" >
+                            update
+                        </button>
                     </div>
                 ))}
             </div>

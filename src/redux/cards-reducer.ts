@@ -41,8 +41,9 @@ export const setCardPacksAC = (data: CardPacksResType) =>
     ({ type: 'SET_CARD_PACKS', data } as const);
 
 
-export const getCardTC = (name) => {
+export const getCardTC = () => {
     return (dispatch: Dispatch) => {
+        // @ts-ignore
         api.getCard()
             .then(res => {
                 console.dir(res);

@@ -3,9 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {CardPackType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
 import {CardTable} from "./CardTable";
-import {TableCard} from "./TableCard";
-import {getCardTC} from "../../../redux/cardPacks-reducer";
-
+import {TableCard} from "../CardPacks/TableCard";
+import {getCardTC} from '../../../redux/cards-reducer';
 
 
 export const Cards = () => {
@@ -19,10 +18,7 @@ export const Cards = () => {
 
     return (
         <div>
-           <button type="button" onClick={getCard}>
-               GET
-           </button>
-            <TableCard model={CardTable()} data={data} />
+            <TableCard model={CardTable()} data={data}/>
         </div>
     );
 }
