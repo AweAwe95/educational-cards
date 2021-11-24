@@ -18,7 +18,7 @@ export const RangeFilter = () => {
     const dispatch = useDispatch()
 
     const [value1, setValue1] = useState(0);
-    const [value2, setValue2] = useState(1000);
+    const [value2, setValue2] = useState(200);
 
     const onChangeRangeValue = (values: number[]) => {
         setValue1(values[0]);
@@ -35,7 +35,7 @@ export const RangeFilter = () => {
             <span>{value1}</span>
             <Range
                 min={0}
-                max={1000}
+                max={200}
                 onChange={onChangeRangeValue}
                 value={[value1, value2]}
                 allowCross={false}/>

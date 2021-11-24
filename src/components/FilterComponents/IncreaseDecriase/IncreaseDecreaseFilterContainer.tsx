@@ -6,8 +6,8 @@ export const IncreaseDecreaseFilterContainer = () => {
 
     return (
         <div>
-            <IncreaseDecreaseFilter direction={1} buttonDescription={'increase'}/>
-            <IncreaseDecreaseFilter direction={0} buttonDescription={'decrease'}/>
+            <IncreaseDecreaseFilter direction={1} buttonDescription={'decrease'}/>
+            <IncreaseDecreaseFilter direction={0} buttonDescription={'increase'}/>
         </div>
     );
 };

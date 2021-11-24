@@ -1,23 +1,21 @@
 import {Dispatch} from 'redux';
 
 const initialState = {
-    packName: 'Hey',
+    packName: '',
     min: 1,
-    max: 100,
+    max: 1000,
     sortPacks: {
         firstNumber: 0,
-        secondDescription: 'name'
+        secondDescription: ''
     },
     page: 1,
-    pageCount: 4,
-    currentPage: 1,
-    totalCountPage: 108,
+    pageCount: 20,
+    totalCountPage: 0
 };
 
 export const packsFilterReducer = (state: PacksFilterReducerStateType = initialState, action: ActionsType): PacksFilterReducerStateType => {
     switch (action.type) {
         case 'PACK-FILTER/SET-PACKNAME': {
-            debugger
             return {...state, packName: action.packName};
         }
         case 'PACK-FILTER/SET-MINCARDS': {
@@ -37,9 +35,6 @@ export const packsFilterReducer = (state: PacksFilterReducerStateType = initialS
         }
         case 'PACK-FILTER/SET-PAGE-COUNT': {
             return {...state, pageCount: action.pageCount};
-        }
-        case 'PACK-FILTER/SET-CURRENT-PAGE': {
-            return {...state, currentPage: action.currentPageCount};
         }
         case 'PACK-FILTER/SET-TOTAL-COUNT-PAGE': {
             return {...state, totalCountPage: action.totalCountPage};
@@ -92,12 +87,6 @@ export const setPageCount = (pageCount: number) => {
         pageCount
     } as const;
 };
-export const setCurrentPage = (currentPageCount: number) => {
-    return {
-        type: 'PACK-FILTER/SET-CURRENT-PAGE',
-        currentPageCount
-    } as const;
-};
 export const setTotalCountPage = (totalCountPage: number) => {
     return {
         type: 'PACK-FILTER/SET-TOTAL-COUNT-PAGE',
@@ -119,6 +108,5 @@ type ActionsType = ReturnType<typeof setPackName>
     | ReturnType<typeof setSecondDescriptionSort>
     | ReturnType<typeof setPage>
     | ReturnType<typeof setPageCount>
-    | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalCountPage>
 

@@ -19,6 +19,11 @@ export const AddItemForm = React.memo(() => {
         }
     };
 
+    const clearTitle = () => {
+        dispatch(setPackName(''));
+        setTitle('');
+    }
+
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value);
         setError(null);
@@ -39,12 +44,8 @@ export const AddItemForm = React.memo(() => {
                 onChange={changeHandler}
             />
 
-            <button
-                onClick={addTitle}
-                color='primary'
-            >
-                Search
-            </button>
+            <button onClick={addTitle}> Set filter</button>
+            <button onClick={clearTitle}>Clear filter</button>
 
             {/*{error && <div className={'error-message'}>Title is required</div>}*/}
         </div>

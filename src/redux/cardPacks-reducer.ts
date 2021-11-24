@@ -1,5 +1,7 @@
 import {Dispatch} from 'redux';
 import {api, CardPacksResType} from '../api/api';
+import {AppRootStateType} from './store';
+import {setTotalCountPage} from './Packs/packs-filter-reducer';
 
 const initialState = {
     cardPacks: [{
@@ -33,11 +35,16 @@ export const setCardPacksAC = (data: CardPacksResType) =>
 
 
 export const getCardTC = () => {
-    return (dispatch: Dispatch) => {
-        api.card()
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        const {packName, min, max, page, pageCount} = getState().packFilter
+        const {firstNumber, secondDescription} = getState().packFilter.sortPacks
+        const sortPacks = firstNumber + secondDescription
+        console.log(sortPacks);
+        api.card(packName, min, max, page, pageCount, sortPacks)
             .then(res => {
                 console.dir(res);
                 dispatch(setCardPacksAC(res.data));
+                dispatch(setTotalCountPage(res.data.cardPacksTotalCount));
             })
             .catch(e => {
                 // console.log('Error: ' + e.response.data.error || e.message);
