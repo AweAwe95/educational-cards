@@ -21,16 +21,7 @@ const initialState = {
 export const cardPacksReducer = (state: CardPacksResType = initialState, action: CardStateType): CardPacksResType => {
     switch (action.type) {
         case 'SET_CARD_PACKS': {
-            return { ...state, ...action.data };
-        }
-        case 'SET_CARD_PACKS': {
-            return { ...state, ...action.data };
-        }
-        case 'SET_CARD_PACKS': {
-            return { ...state, ...action.data };
-        }
-        case 'SET_CARD_PACKS': {
-            return { ...state, ...action.data };
+            return {...state, ...action.data};
         }
         default:
             return state;
@@ -38,7 +29,7 @@ export const cardPacksReducer = (state: CardPacksResType = initialState, action:
 };
 
 export const setCardPacksAC = (data: CardPacksResType) =>
-    ({ type: 'SET_CARD_PACKS', data } as const);
+    ({type: 'SET_CARD_PACKS', data} as const);
 
 
 export const getCardTC = () => {
@@ -61,4 +52,4 @@ export const getCardTC = () => {
 
 
 export type CardPacksActionTypes = ReturnType<typeof setCardPacksAC>;
-type CardStateType =  CardPacksActionTypes
+type CardStateType = CardPacksActionTypes

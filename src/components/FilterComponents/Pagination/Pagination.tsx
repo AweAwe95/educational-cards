@@ -20,7 +20,7 @@ export const Paginator = () => {
             <div className={s.pages}>
                 {pageCountPaginationArray.map((page, index) => <span
                     key={index}
-                    className={objForPagination.page == page ? s.currentPage : s.page}
+                    className={objForPagination.page === page ? s.currentPage : s.page}
                     onClick={() => dispatch(setPage(page))}>{page}</span>)}
             </div>
             <SelectForPaginator/>

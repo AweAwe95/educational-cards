@@ -29,7 +29,7 @@ export const api = {
     logout() {
         return instance.delete('auth/me', {});
     },
-    card(packName: string, min: number, max: number, page: number, pageCount: number, sortPacks: string) {
+    getCardPacks(packName: string, min: number, max: number, page: number, pageCount: number, sortPacks: string) {
         return instance.get<CardPacksResType>('cards/pack/', {
             params: {packName, min, max, page, pageCount, sortPacks}
         });

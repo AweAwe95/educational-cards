@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import {Range} from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import s from './RangeFilter.module.css';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../../redux/store';
+import {useDispatch} from 'react-redux';
 import {setMaxCardsInPack, setMinCardsInPack} from '../../../redux/Packs/packs-filter-reducer';
 
 
@@ -13,8 +12,8 @@ export const RangeFilter = () => {
     //     maxValueFixed = maxCards
     // })
 
-    const minCards = useSelector<AppRootStateType, number>(state => state.packFilter.min)
-    const maxCards = useSelector<AppRootStateType, number>(state => state.packFilter.max)
+    // const minCards = useSelector<AppRootStateType, number>(state => state.packFilter.min)
+    // const maxCards = useSelector<AppRootStateType, number>(state => state.packFilter.max)
     const dispatch = useDispatch()
 
     const [value1, setValue1] = useState(0);

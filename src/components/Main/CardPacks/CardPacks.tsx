@@ -4,18 +4,11 @@ import {CardPackType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
 import {CardPacksTable} from './CardPacksTable';
 import {TableCard} from './TableCard';
-import {getCardTC} from '../../../redux/cardPacks-reducer';
 import {Paginator} from '../../FilterComponents/Pagination/Pagination';
 import {AddItemForm} from '../../FilterComponents/SearchInput/SearchInput';
 import {RangeFilter} from '../../FilterComponents/RangeFilter/RangeFilter';
 import {PacksFilterReducerStateType} from '../../../redux/Packs/packs-filter-reducer';
-import React, {useCallback, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {CardPackType} from '../../../api/api';
-import {AppRootStateType} from '../../../redux/store';
-import {CardPacksTable} from './CardPacksTable';
-import {TableCard} from './TableCard';
-import {addCardPacksTC, deleteCardPacksTC, getCardPacksTC} from '../../../redux/cardPacks-reducer';
+import {getCardPacksTC} from '../../../redux/cardPacks-reducer';
 import {Loader} from '../../Loader/Loader';
 
 
@@ -39,13 +32,13 @@ export const CardPacks = () => {
 
 
     useEffect(() => {
-        dispatch(getCardTC());
-    }, [packName, min, max, page, pageCount, firstNumber, secondDescription]);
-
-    useEffect(() => {
-        const thunk = getCardPacksTC();
-        dispatch(thunk);
-    }, []);
+        dispatch(getCardPacksTC());
+    }, [packName, min, max, page, pageCount, firstNumber, secondDescription, dispatch]);
+    //
+    // useEffect(() => {
+    //     const thunk = getCardPacksTC();
+    //     dispatch(thunk);
+    // }, [dispatch]);
 
     return (
         <div>
