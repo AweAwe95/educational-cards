@@ -10,6 +10,7 @@ import {RecoveryPassword} from "./components/Main/RecoveryPassword/RecoveryPassw
 import {NewPassword} from "./components/Main/NewPassword/NewPassword";
 import {Route, Routes} from "react-router-dom";
 import {CardPacks} from "./components/Main/CardPacks/CardPacks";
+import {Cards} from "./components/Main/Cards/Cards";
 
 function App() {
     return (
@@ -23,7 +24,8 @@ function App() {
                     <Route path={'/'} element={<Profile/>}></Route>
                     <Route path={'/password-recovery'} element={<RecoveryPassword/>}></Route>
                     <Route path={'/new-password/:serverToken'} element={<NewPassword/>}></Route>
-                    <Route path={'/cards'} element={<CardPacks/>}></Route>
+                    <Route path={'/cards'} element={<Cards/>}></Route>
+                    <Route path={'/packs'} element={<CardPacks/>}></Route>
                 </Routes>
             </div>
             <Footer/>

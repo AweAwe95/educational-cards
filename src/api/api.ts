@@ -4,7 +4,6 @@ import {AuthFormikType} from '../components/Main/Authorization/AuthorizationForm
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    // baseURL: "https://neko-back.herokuapp.com/2.0/",
     withCredentials: true,
 });
 
@@ -30,10 +29,31 @@ export const api = {
     logout() {
         return instance.delete('auth/me', {});
     },
-    card(packName: string, min: number, max: number, page: number, pageCount: number, sortPacks: string ) {
+    card(packName: string, min: number, max: number, page: number, pageCount: number, sortPacks: string) {
         return instance.get<CardPacksResType>('cards/pack/', {
             params: {packName, min, max, page, pageCount, sortPacks}
         });
+    },
+    createCardPacks(name: string) {
+        return instance.post<CardPacksResType>('cards/pack', {cardsPack: {name}});
+    },
+    deleteCardPacks(id: string) {
+        return instance.delete<CardPacksResType>(`cards/pack/?id=${id}`);
+    },
+    updateCardPacks(id: string, title: string) {
+        return instance.put<CardPacksResType>(`cards/pack/${id}`, {title});
+    },
+    getCard(packsId: string) {
+        return instance.get<CardPacksResType>(`cards/${packsId}/card`);
+    },
+    createCard(packsId: string, name: string) {
+        return instance.post<CardPacksResType>(`cards/${packsId}/card`, {name});
+    },
+    deleteCard(packsId: string, cardId: string) {
+        return instance.delete<CardPacksResType>(`cards/${packsId}/card/${cardId}`);
+    },
+    updateCard(packsId: string, cardId: string, question: string) {
+        return instance.put<CardPacksResType>(`cards/${packsId}/card/${cardId}`, {question});
     }
 };
 
@@ -70,4 +90,33 @@ export type CardPacksResType = {
     minCardsCount: number
     page: number
     pageCount: number
+}
+
+export type CardType = {
+    answer: string
+    question: string
+    cardsPack_id: string
+    grade: number
+    comments: string
+    created: string
+    updated: string
+    more_id: string
+    rating: number
+    shots: number
+    type: string
+    user_id: string
+    __v: number
+    _id: string
+}
+
+export type CardsResType = {
+    cards: CardType[]
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    page: number
+    pageCount: number
+    packUserId: number
+    token: string
+    tokenDeathTime: number
 }

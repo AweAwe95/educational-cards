@@ -9,12 +9,22 @@ import {Paginator} from '../../FilterComponents/Pagination/Pagination';
 import {AddItemForm} from '../../FilterComponents/SearchInput/SearchInput';
 import {RangeFilter} from '../../FilterComponents/RangeFilter/RangeFilter';
 import {PacksFilterReducerStateType} from '../../../redux/Packs/packs-filter-reducer';
+import React, {useCallback, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {CardPackType} from '../../../api/api';
+import {AppRootStateType} from '../../../redux/store';
+import {CardPacksTable} from './CardPacksTable';
+import {TableCard} from './TableCard';
+import {addCardPacksTC, deleteCardPacksTC, getCardPacksTC} from '../../../redux/cardPacks-reducer';
+import {Loader} from '../../Loader/Loader';
 
 
 export const CardPacks = () => {
     const dispatch = useDispatch();
     const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
     const objForPagination = useSelector<AppRootStateType, PacksFilterReducerStateType>(state => state.packFilter);
+    const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
+
     const {
         packName,
         min,
@@ -27,13 +37,15 @@ export const CardPacks = () => {
         secondDescription
     } = useSelector<AppRootStateType, { firstNumber: number, secondDescription: string }>(state => state.packFilter.sortPacks);
 
-    const getCard = () => {
-        dispatch(getCardTC());
-    };
 
     useEffect(() => {
         dispatch(getCardTC());
     }, [packName, min, max, page, pageCount, firstNumber, secondDescription]);
+
+    useEffect(() => {
+        const thunk = getCardPacksTC();
+        dispatch(thunk);
+    }, []);
 
     return (
         <div>
@@ -42,6 +54,7 @@ export const CardPacks = () => {
             <TableCard
                 model={CardPacksTable()}
                 data={data}/>
+            {isLoading && <Loader/>}
             <Paginator/>
 
             <div>{'packName: ' + objForPagination.packName}</div>
@@ -54,3 +67,4 @@ export const CardPacks = () => {
         </div>
     );
 };
+

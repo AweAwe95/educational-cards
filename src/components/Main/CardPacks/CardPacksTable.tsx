@@ -10,7 +10,7 @@ export const CardPacksTable = (): ITableModel[] => {
             {
                 title: (i: number) => (
                     <div key={i} style={{width: '100%', display: 'flex'}}>
-                        <div>CardsName</div>
+                        <div>cardPacksName</div>
                     </div>
                 ),
                 render: (d, i: number) => (
@@ -33,7 +33,6 @@ export const CardPacksTable = (): ITableModel[] => {
                         <div
                             onClick={(e) => dispatch(setSecondDescriptionSort(((e.target as HTMLElement).innerText)))}>updated
                         </div>
-
                         <IncreaseDecreaseFilterContainer/>
                     </div>
                 ),
