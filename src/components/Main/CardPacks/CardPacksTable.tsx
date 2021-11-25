@@ -4,7 +4,7 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {setSecondDescriptionSort} from '../../../redux/Packs/packs-filter-reducer';
 
-export const CardTable = (): ITableModel[] => {
+export const CardPacksTable = (): ITableModel[] => {
     const dispatch = useDispatch();
     return ([
             {

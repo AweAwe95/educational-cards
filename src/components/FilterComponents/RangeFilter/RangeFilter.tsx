@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Range} from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import s from './RangeFilter.module.css';

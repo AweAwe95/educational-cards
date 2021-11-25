@@ -1,8 +1,14 @@
 import {
     packsFilterReducer,
     PacksFilterReducerStateType,
-    SecondDescriptionType, setCurrentPage, setFirstNumberSort, setMaxCardsInPack, setMinCardsInPack,
-    setPackName, setPage, setPageCount, setSecondDescriptionSort, setTotalCountPage
+    setFirstNumberSort,
+    setMaxCardsInPack,
+    setMinCardsInPack,
+    setPackName,
+    setPage,
+    setPageCount,
+    setSecondDescriptionSort,
+    setTotalCountPage
 } from './packs-filter-reducer';
 
 
@@ -15,11 +21,10 @@ beforeEach(() => {
         max: 10,
         sortPacks: {
             firstNumber: 0,
-            secondDescription: {} as SecondDescriptionType
+            secondDescription: ''
         },
         page: 1,
         pageCount: 4,
-        currentPage: 1,
         totalCountPage: 0,
     };
 });
@@ -52,10 +57,6 @@ test('page should be changed', () => {
 test('pageCount should be changed', () => {
     const endState = packsFilterReducer(initialState, setPageCount(100500));
     expect(endState.pageCount).toBe(100500);
-});
-test('currentPage should be changed', () => {
-    const endState = packsFilterReducer(initialState, setCurrentPage(2));
-    expect(endState.currentPage).toBe(2);
 });
 test('totalCountPage should be changed', () => {
     const endState = packsFilterReducer(initialState, setTotalCountPage(4));

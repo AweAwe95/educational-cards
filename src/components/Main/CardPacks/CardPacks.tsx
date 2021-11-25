@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardPackType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
-import {CardTable} from './CardTable';
+import {CardPacksTable} from './CardPacksTable';
 import {TableCard} from './TableCard';
 import {getCardTC} from '../../../redux/cardPacks-reducer';
 import {Paginator} from '../../FilterComponents/Pagination/Pagination';
@@ -11,7 +11,7 @@ import {RangeFilter} from '../../FilterComponents/RangeFilter/RangeFilter';
 import {PacksFilterReducerStateType} from '../../../redux/Packs/packs-filter-reducer';
 
 
-export const Cards = () => {
+export const CardPacks = () => {
     const dispatch = useDispatch();
     const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
     const objForPagination = useSelector<AppRootStateType, PacksFilterReducerStateType>(state => state.packFilter);
@@ -40,7 +40,7 @@ export const Cards = () => {
             <AddItemForm/>
             <RangeFilter/>
             <TableCard
-                model={CardTable()}
+                model={CardPacksTable()}
                 data={data}/>
             <Paginator/>
 
