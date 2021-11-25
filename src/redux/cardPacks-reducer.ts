@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {api, CardPacksResType} from '../api/api';
+import {ThunkDispatch} from "redux-thunk";
 
 const initialState = {
     cardPacks: [{
@@ -27,7 +28,7 @@ export const cardPacksReducer = (state: CardPacksResType = initialState, action:
             return {...state, ...action.data};
         }
         case 'DELETE_CARD_PACKS': {
-            // @ts-ignore
+
             return {...state, cardPacks: state.cardPacks.filter(cardPack => cardPack._id !== action.id)};
         }
         case 'UPDATE_CARD_PACKS': {
@@ -42,7 +43,7 @@ export const getCardPacksAC = (data: CardPacksResType) =>
     ({type: 'GET_CARD_PACKS', data} as const);
 export const createCardPacksAC = (data: CardPacksResType) =>
     ({type: 'CURRENT_CARD_PACKS', data} as const);
-export const deleteCardPacksAC = (id: CardPacksResType) =>
+export const deleteCardPacksAC = (id: string) =>
     ({type: 'DELETE_CARD_PACKS', id} as const);
 export const updateCardPacksAC = (data: CardPacksResType) =>
     ({type: 'UPDATE_CARD_PACKS', data} as const);
@@ -62,10 +63,11 @@ export const getCardPacksTC = () => {
     };
 };
 export const addCardPacksTC = (name: string) => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: any) => {
         api.createCardPacks(name)
             .then((res) => {
-                dispatch(createCardPacksAC(res.data))
+                // dispatch(createCardPacksAC(res.data))
+                dispatch(getCardPacksTC())
             })
             .catch(e => {
                 const error = e.response.data.error
@@ -77,7 +79,7 @@ export const deleteCardPacksTC = (id: string) => {
     return (dispatch: Dispatch) => {
         api.deleteCardPacks(id)
             .then((res) => {
-                dispatch(deleteCardPacksAC(res.data))
+                dispatch(deleteCardPacksAC(id))
             })
             .catch(e => {
                 const error = e.response.data.error

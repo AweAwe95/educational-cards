@@ -37,10 +37,10 @@ export const api = {
     //     return instance.get<CardPacksResType>(`cards/pack?pageCount=${pageCount}&user_id=${user_id}`)
     // },
     createCardPacks(name: string) {
-        return instance.post<CardPacksResType>('cards/pack', {name})
+        return instance.post<CardPacksResType>('cards/pack', {cardsPack:{name}})
     },
     deleteCardPacks(id: string) {
-        return instance.delete<CardPacksResType>(`cards/pack/${id}`)
+        return instance.delete<CardPacksResType>(`cards/pack/?id=${id}`)
     },
     updateCardPacks(id: string, title: string) {
         return instance.put<CardPacksResType>(`cards/pack/${id}`, {title})
