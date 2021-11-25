@@ -52,7 +52,7 @@ export const TableCard: React.FC<ITableProps> = (
     const deleteCardPacks = useCallback(function (id: string) {
         const thunk = deleteCardPacksTC(id)
         dispatch(thunk)
-    }, [])
+    }, [dispatch])
 
     return (
         <div

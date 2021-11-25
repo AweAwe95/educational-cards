@@ -13,17 +13,23 @@ export function Header() {
     return (
         <div className="header">
             <div className="header-left">
-                <NavLink to="/">Profile</NavLink>
-                <NavLink to="/auth">Authorization</NavLink>
-                <NavLink to="/signup">Registration</NavLink>
-                <NavLink to="/password-recovery">Password Recovery</NavLink>
-                <NavLink to="/new-password">New Password</NavLink>
-                <NavLink to="/packs">Packs</NavLink>
-                <NavLink to="/cards">Сards</NavLink>
-                <NavLink to="/error-404">Error 404</NavLink>
+                {(isLoggedIn) ?
+                    <>
+                        <NavLink to="/">Profile</NavLink>
+                        <NavLink to="/packs">Packs</NavLink>
+                        <NavLink to="/cards">Сards</NavLink>
+                    </>
+                    :
+                    <>
+                        <NavLink to="/auth">Authorization</NavLink>
+                        <NavLink to="/signup">Registration</NavLink>
+                        <NavLink to="/password-recovery">Password Recovery</NavLink>
+                    </>
+                }
             </div>
             <div className="header-right">
-                {isLoggedIn && <button className="logout-button" onClick={()=>dispatch(logoutTC())} disabled={isLoading}>Logout</button>}
+                {isLoggedIn && <button className="logout-button" onClick={() => dispatch(logoutTC())}
+                                       disabled={isLoading}>Logout</button>}
             </div>
         </div>
     )

@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
-import {Footer} from "./components/Footer/Footer";
 import {Authorization} from "./components/Main/Authorization/Authorization";
 import {Registration} from "./components/Main/Registration/Registration";
 import {Profile} from "./components/Main/Profile/Profile";
@@ -28,7 +27,6 @@ function App() {
                     <Route path={'/packs'} element={<CardPacks/>}></Route>
                 </Routes>
             </div>
-            <Footer/>
         </div>
     );
 }
