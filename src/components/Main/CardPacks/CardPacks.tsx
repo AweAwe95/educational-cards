@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardPackType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
-import {CardPacksTable} from './CardPacksTable';
-import {TableCard} from './TableCard';
+import {CardPacksTableBody} from './CardPacksTableBody';
 import {Paginator} from '../../FilterComponents/Pagination/Pagination';
 import {AddItemForm} from '../../FilterComponents/SearchInput/SearchInput';
 import {RangeFilter} from '../../FilterComponents/RangeFilter/RangeFilter';
 import {PacksFilterReducerStateType} from '../../../redux/Packs/packs-filter-reducer';
 import {getCardPacksTC} from '../../../redux/cardPacks-reducer';
 import {Loader} from '../../Loader/Loader';
+import { CardPacksTable } from './CardPacksTable';
 
 
 export const CardPacks = () => {
@@ -34,18 +34,13 @@ export const CardPacks = () => {
     useEffect(() => {
         dispatch(getCardPacksTC());
     }, [packName, min, max, page, pageCount, firstNumber, secondDescription, dispatch]);
-    //
-    // useEffect(() => {
-    //     const thunk = getCardPacksTC();
-    //     dispatch(thunk);
-    // }, [dispatch]);
 
     return (
         <div>
             <AddItemForm/>
             <RangeFilter/>
-            <TableCard
-                model={CardPacksTable()}
+            <CardPacksTable
+                model={CardPacksTableBody()}
                 data={data}/>
             {isLoading && <Loader/>}
             <Paginator/>
@@ -60,4 +55,3 @@ export const CardPacks = () => {
         </div>
     );
 };
-

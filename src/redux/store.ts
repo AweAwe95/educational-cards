@@ -7,6 +7,7 @@ import {cardPacksReducer} from "./cardPacks-reducer";
 import thunkMiddleware from 'redux-thunk'
 import {appReducer} from "./app-reducer";
 import {packsFilterReducer} from './Packs/packs-filter-reducer';
+import {cardsReducer} from "./cards-reducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     recoveryPassword: recoveryPasswordReducer,
     registration: registrationReducer,
     cardPacks: cardPacksReducer,
+    cards: cardsReducer,
     packFilter: packsFilterReducer,
 })
 

@@ -2,7 +2,7 @@ import React, {CSSProperties, ReactNode, useCallback, useState} from 'react';
 import {addCardPacksTC, deleteCardPacksTC} from "../../../redux/cardPacks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../redux/store";
-import {CardPackType} from "../../../api/api";
+import {CardPackType, CardType} from "../../../api/api";
 
 export interface ITableModel {
     title: (index: number) => ReactNode;
@@ -24,7 +24,7 @@ interface ITableProps {
     rowStyle?: CSSProperties,
 }
 
-export const TableCard: React.FC<ITableProps> = (
+export const CardsTable: React.FC<ITableProps> = (
     {
 // loading,
 // error,
@@ -41,18 +41,18 @@ export const TableCard: React.FC<ITableProps> = (
     }
 ) => {
     const dispatch = useDispatch();
-    const [newNamePacks, setNewNamePacks] = useState<string>('')
-    const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
+    // const [newNamePacks, setNewNamePacks] = useState<string>('')
+    const data = useSelector<AppRootStateType, CardType[]>(state => state.cards.cards);
 
-    const addCardPacks = useCallback((name: string) => {
-        const thunk = addCardPacksTC(name)
-        dispatch(thunk)
-    }, [dispatch])
-
-    const deleteCardPacks = useCallback(function (id: string) {
-        const thunk = deleteCardPacksTC(id)
-        dispatch(thunk)
-    }, [dispatch])
+    // const addCardPacks = useCallback((name: string) => {
+    //     const thunk = addCardPacksTC(name)
+    //     dispatch(thunk)
+    // }, [dispatch])
+    //
+    // const deleteCardPacks = useCallback(function (id: string) {
+    //     const thunk = deleteCardPacksTC(id)
+    //     dispatch(thunk)
+    // }, [dispatch])
 
     return (
         <div
@@ -67,10 +67,10 @@ export const TableCard: React.FC<ITableProps> = (
             }}
         >
             table
-            <input type="text" value={newNamePacks} onChange={e => setNewNamePacks(e.currentTarget.value)}/>
-            <button type="button" onClick={()=>addCardPacks(newNamePacks)}>
-                add
-            </button>
+            {/*<input type="text" value={newNamePacks} onChange={e => setNewNamePacks(e.currentTarget.value)}/>*/}
+            {/*<button type="button" onClick={() => addCardPacks(newNamePacks)}>*/}
+            {/*    add*/}
+            {/*</button>*/}
             {/*{loading*/}
             {/*? <div style={{color: 'orange'}}>loading...</div>*/}
             {/*: error*/}
@@ -113,12 +113,6 @@ export const TableCard: React.FC<ITableProps> = (
                         }}
                     >
                         {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
-                        <button type="button" onClick={()=>deleteCardPacks(dataItem._id)}>
-                            del
-                        </button>
-                        <button type="button" >
-                            update
-                        </button>
                     </div>
                 ))}
             </div>

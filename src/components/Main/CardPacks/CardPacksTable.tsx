@@ -1,59 +1,127 @@
-import {ITableModel} from './TableCard';
-import {IncreaseDecreaseFilterContainer} from '../../FilterComponents/IncreaseDecriase/IncreaseDecreaseFilterContainer';
-import React from 'react';
-import {useDispatch} from 'react-redux';
-import {setSecondDescriptionSort} from '../../../redux/Packs/packs-filter-reducer';
+import React, {CSSProperties, ReactNode, useCallback, useState} from 'react';
+import {addCardPacksTC, deleteCardPacksTC} from "../../../redux/cardPacks-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../../redux/store";
+import {CardPackType} from "../../../api/api";
 
-export const CardPacksTable = (): ITableModel[] => {
+export interface ITableModel {
+    title: (index: number) => ReactNode;
+    render: (dataItem: any, modelIndex: number, dataIndex: number) => ReactNode;
+}
+
+interface ITableProps {
+// loading: boolean;
+// error: string;
+//
+// logoutCallback: () => void;
+
+    model: ITableModel[];
+    data: any;
+
+    headerStyle?: CSSProperties,
+    tableStyle?: CSSProperties,
+    rowsStyle?: CSSProperties,
+    rowStyle?: CSSProperties,
+}
+
+export const CardPacksTable: React.FC<ITableProps> = (
+    {
+// loading,
+// error,
+//
+// logoutCallback,
+
+        model,
+        // data,
+
+        headerStyle,
+        tableStyle,
+        rowsStyle,
+        rowStyle,
+    }
+) => {
     const dispatch = useDispatch();
-    return ([
-            {
-                title: (i: number) => (
-                    <div key={i} style={{width: '100%', display: 'flex'}}>
-                        <div>cardPacksName</div>
+    const [newNamePacks, setNewNamePacks] = useState<string>('')
+    const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
+
+    const addCardPacks = useCallback((name: string) => {
+        const thunk = addCardPacksTC(name)
+        dispatch(thunk)
+    }, [dispatch])
+
+    const deleteCardPacks = useCallback(function (id: string) {
+        const thunk = deleteCardPacksTC(id)
+        dispatch(thunk)
+    }, [dispatch])
+
+    return (
+        <div
+            style={{
+                margin: '0 10px',
+// minHeight: '80vh',
+                display: 'flex',
+                flexFlow: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...tableStyle,
+            }}
+        >
+            table
+            <input type="text" value={newNamePacks} onChange={e => setNewNamePacks(e.currentTarget.value)}/>
+            <button type="button" onClick={()=>addCardPacks(newNamePacks)}>
+                add
+            </button>
+            {/*{loading*/}
+            {/*? <div style={{color: 'orange'}}>loading...</div>*/}
+            {/*: error*/}
+            {/*? <div style={{color: 'red'}}>{error}</div>*/}
+            {/*: <div><br/></div>*/}
+            {/*}*/}
+
+            <div
+                style={{
+                    border: '1px solid red',
+                    width: '100%',
+                    display: 'flex',
+                    flexFlow: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    ...headerStyle,
+                }}
+            >
+                {model.map((m: ITableModel, index: number) => m.title(index))}
+
+            </div>
+
+            <div
+                style={{
+                    border: '1px solid lime',
+                    width: '100%',
+                    ...rowsStyle,
+                }}
+            >
+                {data.map((dataItem: any, dataIndex: number) => (
+                    <div
+                        key={dataItem._id || dataIndex}
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            flexFlow: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            ...rowStyle,
+                        }}
+                    >
+                        {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
+                        <button type="button" onClick={()=>deleteCardPacks(dataItem._id)}>
+                            del
+                        </button>
+                        <button type="button" >
+                            update
+                        </button>
                     </div>
-                ),
-                render: (d, i: number) => (
-                    <div key={i} style={{width: '100%'}}>{d.name}</div>
-                ),
-            },
-            {
-                title: (i: number) => (
-                    <div key={i} style={{width: '100%', display: 'flex'}}>
-                        <div>cardsCount</div>
-                    </div>
-                ),
-                render: (d, i: number) => (
-                    <div key={i} style={{width: '100%'}}>{d.cardsCount}</div>
-                ),
-            },
-            {
-                title: (i: number) => (
-                    <div key={i} style={{width: '100%', display: 'flex'}}>
-                        <div
-                            onClick={(e) => dispatch(setSecondDescriptionSort(((e.target as HTMLElement).innerText)))}>updated
-                        </div>
-                        <IncreaseDecreaseFilterContainer/>
-                    </div>
-                ),
-                render: (d, i: number) => (
-                    <div key={i} style={{width: '100%'}}>{d.updated}</div>
-                ),
-            },
-            {
-                title: (i: number) => (
-                    <div key={i} style={{width: '100%', display: 'flex'}}>
-                        <div
-                            onClick={(e) => dispatch(setSecondDescriptionSort(((e.target as HTMLElement).innerText)))}>name
-                        </div>
-                        <IncreaseDecreaseFilterContainer/>
-                    </div>
-                ),
-                render: (d, i: number) => (
-                    <div key={i} style={{width: '100%'}}>{d.user_name}</div>
-                ),
-            },
-        ]
+                ))}
+            </div>
+        </div>
     );
 };
-

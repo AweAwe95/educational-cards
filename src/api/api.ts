@@ -43,11 +43,11 @@ export const api = {
     updateCardPacks(id: string, title: string) {
         return instance.put<CardPacksResType>(`cards/pack/${id}`, {title});
     },
-    getCard(packsId: string) {
-        return instance.get<CardPacksResType>(`cards/${packsId}/card`);
+    getCards(packsId: string) {
+        return instance.get<CardsResType>(`cards/card/?cardsPack_id=${packsId}`);
     },
-    createCard(packsId: string, name: string) {
-        return instance.post<CardPacksResType>(`cards/${packsId}/card`, {name});
+    createCard(packsId: string, question: string) {
+        return instance.post(`cards/${packsId}/card`, {question});
     },
     deleteCard(packsId: string, cardId: string) {
         return instance.delete<CardPacksResType>(`cards/${packsId}/card/${cardId}`);

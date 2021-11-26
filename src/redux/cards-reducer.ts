@@ -1,26 +1,36 @@
 import {Dispatch} from 'redux';
-import {api, CardPacksResType} from '../api/api';
+import {api, CardsResType} from '../api/api';
 
 const initialState = {
-    cardPacks: [{
-        _id: '',
-        user_id: '',
-        name: '',
-        cardsCount: 0,
-        created: '',
-        updated: '',
-        user_name: '',
+    cards: [{
+        answer: "",
+        question: "",
+        cardsPack_id: "",
+        grade: 0,
+        comments: "",
+        created: "",
+        updated: "",
+        more_id: "",
+        rating: 0,
+        shots: 0,
+        type: "",
+        user_id: "",
+        __v: 0,
+        _id: ""
     }],
-    cardPacksTotalCount: 0,
-    maxCardsCount: 0,
-    minCardsCount: 0,
+    cardsTotalCount: 0,
+    maxGrade: 0,
+    minGrade: 0,
     page: 1,
-    pageCount: 15,
+    pageCount: 0,
+    packUserId: 0,
+    token: "",
+    tokenDeathTime: 15
 };
 
-export const cardPacksReducer = (state: CardPacksResType = initialState, action: CardStateType): CardPacksResType => {
+export const cardsReducer = (state: CardsResType = initialState, action: CardsActionTypes): CardsResType => {
     switch (action.type) {
-        case 'SET_CARD_PACKS': {
+        case 'SET-CARDS': {
             return {...state, ...action.data};
         }
         default:
@@ -28,17 +38,17 @@ export const cardPacksReducer = (state: CardPacksResType = initialState, action:
     }
 };
 
-export const setCardPacksAC = (data: CardPacksResType) =>
-    ({type: 'SET_CARD_PACKS', data} as const);
+export const setCardsAC = (data: CardsResType) =>
+    ({type: 'SET-CARDS', data} as const);
 
 
-export const getCardTC = () => {
+export const getCardsTC = (id: string) => {
     return (dispatch: Dispatch) => {
         // @ts-ignore
-        api.getCard()
+        api.getCards(id)
             .then(res => {
                 console.dir(res);
-                dispatch(setCardPacksAC(res.data));
+                dispatch(setCardsAC(res.data));
             })
             .catch(e => {
                 // console.log('Error: ' + e.response.data.error || e.message);
@@ -51,5 +61,4 @@ export const getCardTC = () => {
 };
 
 
-export type CardPacksActionTypes = ReturnType<typeof setCardPacksAC>;
-type CardStateType = CardPacksActionTypes
+export type CardsActionTypes = ReturnType<typeof setCardsAC>;

@@ -1,6 +1,6 @@
-import {ITableModel} from '../CardPacks/TableCard';
+import {ITableModel} from '../CardPacks/CardPacksTable';
 
-export const CardTable = (): ITableModel[] => [
+export const CardsTableBody = (): ITableModel[] => [
     {
         title: (i: number) => (
             <div key={i} style={{width: '100%'}}> question </div>

@@ -20,18 +20,18 @@ const initialState = {
     pageCount: 15,
 };
 
-export const cardPacksReducer = (state: CardPacksResType = initialState, action: CardStateType): CardPacksResType => {
+export const cardPacksReducer = (state: CardPacksResType = initialState, action: CardPacksActionTypes): CardPacksResType => {
     switch (action.type) {
-        case 'GET_CARD_PACKS': {
+        case 'GET-CARD-PACKS': {
             return {...state, ...action.data};
         }
-        case 'CURRENT_CARD_PACKS': {
+        case 'CURRENT-CARD-PACKS': {
             return {...state, ...action.data};
         }
-        case 'DELETE_CARD_PACKS': {
+        case 'DELETE-CARD-PACKS': {
             return {...state, cardPacks: state.cardPacks.filter(cardPack => cardPack._id !== action.id)};
         }
-        case 'UPDATE_CARD_PACKS': {
+        case 'UPDATE-CARD-PACKS': {
             return {...state, ...action.data};
         }
         default:
@@ -40,13 +40,13 @@ export const cardPacksReducer = (state: CardPacksResType = initialState, action:
 };
 
 export const getCardPacksAC = (data: CardPacksResType) =>
-    ({type: 'GET_CARD_PACKS', data} as const);
+    ({type: 'GET-CARD-PACKS', data} as const);
 export const createCardPacksAC = (data: CardPacksResType) =>
-    ({type: 'CURRENT_CARD_PACKS', data} as const);
+    ({type: 'CURRENT-CARD-PACKS', data} as const);
 export const deleteCardPacksAC = (id: string) =>
-    ({type: 'DELETE_CARD_PACKS', id} as const);
+    ({type: 'DELETE-CARD-PACKS', id} as const);
 export const updateCardPacksAC = (data: CardPacksResType) =>
-    ({type: 'UPDATE_CARD_PACKS', data} as const);
+    ({type: 'UPDATE-CARD-PACKS', data} as const);
 
 
 export const getCardPacksTC = () => {
@@ -98,4 +98,3 @@ export type CardPacksActionTypes =
     ReturnType<typeof createCardPacksAC> |
     ReturnType<typeof deleteCardPacksAC> |
     ReturnType<typeof updateCardPacksAC>;
-type CardStateType = CardPacksActionTypes
