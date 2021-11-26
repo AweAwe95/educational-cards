@@ -1,8 +1,7 @@
-import React, {CSSProperties, ReactNode, useCallback, useState} from 'react';
-import {addCardPacksTC, deleteCardPacksTC} from "../../../redux/cardPacks-reducer";
-import {useDispatch, useSelector} from "react-redux";
+import React, {CSSProperties, ReactNode} from 'react';
+import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../redux/store";
-import {CardPackType, CardType} from "../../../api/api";
+import {CardType} from "../../../api/api";
 
 export interface ITableModel {
     title: (index: number) => ReactNode;
@@ -40,25 +39,14 @@ export const CardsTable: React.FC<ITableProps> = (
         rowStyle,
     }
 ) => {
-    const dispatch = useDispatch();
-    // const [newNamePacks, setNewNamePacks] = useState<string>('')
     const data = useSelector<AppRootStateType, CardType[]>(state => state.cards.cards);
 
-    // const addCardPacks = useCallback((name: string) => {
-    //     const thunk = addCardPacksTC(name)
-    //     dispatch(thunk)
-    // }, [dispatch])
-    //
-    // const deleteCardPacks = useCallback(function (id: string) {
-    //     const thunk = deleteCardPacksTC(id)
-    //     dispatch(thunk)
-    // }, [dispatch])
 
     return (
         <div
             style={{
                 margin: '0 10px',
-// minHeight: '80vh',
+
                 display: 'flex',
                 flexFlow: 'column',
                 alignItems: 'center',
@@ -67,16 +55,7 @@ export const CardsTable: React.FC<ITableProps> = (
             }}
         >
             table
-            {/*<input type="text" value={newNamePacks} onChange={e => setNewNamePacks(e.currentTarget.value)}/>*/}
-            {/*<button type="button" onClick={() => addCardPacks(newNamePacks)}>*/}
-            {/*    add*/}
-            {/*</button>*/}
-            {/*{loading*/}
-            {/*? <div style={{color: 'orange'}}>loading...</div>*/}
-            {/*: error*/}
-            {/*? <div style={{color: 'red'}}>{error}</div>*/}
-            {/*: <div><br/></div>*/}
-            {/*}*/}
+
 
             <div
                 style={{

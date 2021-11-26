@@ -10,10 +10,11 @@ import {getCardsTC} from "../../../redux/cards-reducer";
 export const Cards = () => {
     const dispatch = useDispatch()
     const data = useSelector<AppRootStateType, CardType[]>(state => state.cards.cards);
+    const userId = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id)
 
     useEffect(() => {
-        dispatch(getCardsTC(""));
-    }, []);
+        dispatch(getCardsTC(userId));
+    }, [dispatch, userId]);
 
     return (
         <div>

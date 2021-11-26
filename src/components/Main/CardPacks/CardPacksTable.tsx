@@ -3,6 +3,8 @@ import {addCardPacksTC, deleteCardPacksTC} from "../../../redux/cardPacks-reduce
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../redux/store";
 import {CardPackType} from "../../../api/api";
+import {getCardsTC} from "../../../redux/cards-reducer";
+import {NavLink} from "react-router-dom";
 
 export interface ITableModel {
     title: (index: number) => ReactNode;
@@ -54,6 +56,11 @@ export const CardPacksTable: React.FC<ITableProps> = (
         dispatch(thunk)
     }, [dispatch])
 
+    const watchCardsPacks = (id: string) => {
+        dispatch(getCardsTC(id))
+    }
+
+
     return (
         <div
             style={{
@@ -68,7 +75,7 @@ export const CardPacksTable: React.FC<ITableProps> = (
         >
             table
             <input type="text" value={newNamePacks} onChange={e => setNewNamePacks(e.currentTarget.value)}/>
-            <button type="button" onClick={()=>addCardPacks(newNamePacks)}>
+            <button type="button" onClick={() => addCardPacks(newNamePacks)}>
                 add
             </button>
             {/*{loading*/}
@@ -113,11 +120,14 @@ export const CardPacksTable: React.FC<ITableProps> = (
                         }}
                     >
                         {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
-                        <button type="button" onClick={()=>deleteCardPacks(dataItem._id)}>
+                        <button type="button" onClick={() => deleteCardPacks(dataItem._id)}>
                             del
                         </button>
-                        <button type="button" >
+                        <button type="button">
                             update
+                        </button>
+                        <button type="button" onClick={() => watchCardsPacks(dataItem._id)}>
+                            <NavLink to={`/cards/${dataItem._id}`}>Сards</NavLink>
                         </button>
                     </div>
                 ))}

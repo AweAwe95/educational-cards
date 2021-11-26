@@ -42,7 +42,7 @@ export const setCardsAC = (data: CardsResType) =>
     ({type: 'SET-CARDS', data} as const);
 
 
-export const getCardsTC = (id: string) => {
+export const getCardsTC = (id: string | undefined) => {
     return (dispatch: Dispatch) => {
         // @ts-ignore
         api.getCards(id)

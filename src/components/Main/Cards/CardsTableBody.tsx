@@ -6,7 +6,7 @@ export const CardsTableBody = (): ITableModel[] => [
             <div key={i} style={{width: '100%'}}> question </div>
         ),
         render: (d, i: number) => (
-            <div key={i} style={{width: '100%'}}>{d.name}</div>
+            <div key={i} style={{width: '100%'}}>{d.question}</div>
         ),
     },
     {
@@ -14,7 +14,7 @@ export const CardsTableBody = (): ITableModel[] => [
             <div key={i} style={{width: '100%'}}> answer </div>
         ),
         render: (d, i: number) => (
-            <div key={i} style={{width: '100%'}}>{d.cardsCount}</div>
+            <div key={i} style={{width: '100%'}}>{d.answer}</div>
         ),
     },
     {
@@ -22,7 +22,7 @@ export const CardsTableBody = (): ITableModel[] => [
             <div key={i} style={{width: '100%'}}> Grade </div>
         ),
         render: (d, i: number) => (
-            <div key={i} style={{width: '100%'}}>{d.updated}</div>
+            <div key={i} style={{width: '100%'}}>{d.grade}</div>
         ),
     },
     {
@@ -30,7 +30,7 @@ export const CardsTableBody = (): ITableModel[] => [
             <div key={i} style={{width: '100%'}}> updated </div>
         ),
         render: (d, i: number) => (
-            <div key={i} style={{width: '100%'}}>{d.user_name}</div>
+            <div key={i} style={{width: '100%'}}>{d.updated}</div>
         ),
     },
     {
@@ -38,7 +38,7 @@ export const CardsTableBody = (): ITableModel[] => [
             <div key={i} style={{width: '100%'}}> url </div>
         ),
         render: (d, i: number) => (
-            <div key={i} style={{width: '100%'}}>{d.user_name}</div>
+            <div key={i} style={{width: '100%'}}></div>
         ),
     },
 ];
