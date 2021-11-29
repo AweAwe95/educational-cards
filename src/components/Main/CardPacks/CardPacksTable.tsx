@@ -51,7 +51,7 @@ export const CardPacksTable: React.FC<ITableProps> = (
         dispatch(thunk)
     }, [dispatch])
 
-    const deleteCardPacks = useCallback(function (id: string) {
+    const deleteCardPacks = useCallback((id: string) => {
         const thunk = deleteCardPacksTC(id)
         dispatch(thunk)
     }, [dispatch])

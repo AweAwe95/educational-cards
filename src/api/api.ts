@@ -29,9 +29,9 @@ export const api = {
     logout() {
         return instance.delete('auth/me', {});
     },
-    getCardPacks(packName: string, min: number, max: number, page: number, pageCount: number, sortPacks: string) {
+    getCardPacks(packName: string, min: number, max: number, page: number, pageCount: number, sortPacks: string, userId?: string) {
         return instance.get<CardPacksResType>('cards/pack/', {
-            params: {packName, min, max, page, pageCount, sortPacks}
+            params: {packName, min, max, page, pageCount, sortPacks, userId}
         });
     },
     createCardPacks(name: string) {
@@ -41,19 +41,19 @@ export const api = {
         return instance.delete<CardPacksResType>(`cards/pack/?id=${id}`);
     },
     updateCardPacks(id: string, title: string) {
-        return instance.put<CardPacksResType>(`cards/pack/${id}`, {title});
+        return instance.put<CardPacksResType>(`cards/pack`, {cardsPack: {id, title}});
     },
     getCards(packsId: string) {
         return instance.get<CardsResType>(`cards/card/?cardsPack_id=${packsId}`);
     },
     createCard(packsId: string, question: string) {
-        return instance.post(`cards/${packsId}/card`, {question});
+        return instance.post(`cards/card`, {card: {packsId, question}});
     },
-    deleteCard(packsId: string, cardId: string) {
-        return instance.delete<CardPacksResType>(`cards/${packsId}/card/${cardId}`);
+    deleteCard(cardId: string) {
+        return instance.delete(`cards/card/?id=${cardId}`);
     },
-    updateCard(packsId: string, cardId: string, question: string) {
-        return instance.put<CardPacksResType>(`cards/${packsId}/card/${cardId}`, {question});
+    updateCard(cardId: string, question?: string, comments?: string) {
+        return instance.put<CardPacksResType>(`cards/card`, {card: {cardId, question, comments}});
     }
 };
 
