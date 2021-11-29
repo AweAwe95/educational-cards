@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {api, CardsResType} from '../api/api';
+import {setLoaderAC} from "./app-reducer";
 
 const initialState = {
     cards: [{
@@ -44,10 +45,10 @@ export const setCardsAC = (data: CardsResType) =>
 
 export const getCardsTC = (id: string | undefined) => {
     return (dispatch: Dispatch) => {
+        dispatch(setLoaderAC(true))
         // @ts-ignore
         api.getCards(id)
             .then(res => {
-                console.dir(res);
                 dispatch(setCardsAC(res.data));
             })
             .catch(e => {
@@ -56,9 +57,68 @@ export const getCardsTC = (id: string | undefined) => {
                     ? e.response.data.error
                     : (e.message + 'more details in console');
                 console.log('Error: ' + error);
-            });
+            })
+            .finally(() => {
+            dispatch(setLoaderAC(false))
+        })
     };
 };
-
+export const createCardTC = (packsId: string, question: string) => {
+    return (dispatch: any) => {
+        dispatch(setLoaderAC(true))
+        api.createCard(packsId, question)
+            .then(() => {
+                dispatch(getCardsTC(packsId));
+            })
+            .catch(e => {
+                // console.log('Error: ' + e.response.data.error || e.message);
+                const error = e.response.data.error
+                    ? e.response.data.error
+                    : (e.message + 'more details in console');
+                console.log('Error: ' + error);
+            })
+            .finally(() => {
+                dispatch(setLoaderAC(false))
+            })
+    };
+};
+export const deleteCardTC = (packsId: string, cardId: string) => {
+    return (dispatch: any) => {
+        dispatch(setLoaderAC(true))
+        api.deleteCard(cardId)
+            .then(() => {
+                dispatch(getCardsTC(packsId));
+            })
+            .catch(e => {
+                // console.log('Error: ' + e.response.data.error || e.message);
+                const error = e.response.data.error
+                    ? e.response.data.error
+                    : (e.message + 'more details in console');
+                console.log('Error: ' + error);
+            })
+            .finally(() => {
+                dispatch(setLoaderAC(false))
+            })
+    };
+};
+export const updateCardTC = (packsId: string, cardId: string, question?: string, comments?: string) => {
+    return (dispatch: any) => {
+        dispatch(setLoaderAC(true))
+        api.updateCard(cardId,question,comments)
+            .then(() => {
+                dispatch(getCardsTC(packsId));
+            })
+            .catch(e => {
+                // console.log('Error: ' + e.response.data.error || e.message);
+                const error = e.response.data.error
+                    ? e.response.data.error
+                    : (e.message + 'more details in console');
+                console.log('Error: ' + error);
+            })
+            .finally(() => {
+                dispatch(setLoaderAC(false))
+            })
+    };
+};
 
 export type CardsActionTypes = ReturnType<typeof setCardsAC>;

@@ -9,7 +9,7 @@ import {RangeFilter} from '../../FilterComponents/RangeFilter/RangeFilter';
 import {PacksFilterReducerStateType} from '../../../redux/Packs/packs-filter-reducer';
 import {getCardPacksTC} from '../../../redux/cardPacks-reducer';
 import {Loader} from '../../Loader/Loader';
-import { CardPacksTable } from './CardPacksTable';
+import {CardPacksTable} from './CardPacksTable';
 
 
 export const CardPacks = () => {
@@ -36,22 +36,22 @@ export const CardPacks = () => {
     }, [packName, min, max, page, pageCount, firstNumber, secondDescription, dispatch]);
 
     return (
-        <div>
-            <AddItemForm/>
-            <RangeFilter/>
-            <CardPacksTable
-                model={CardPacksTableBody()}
-                data={data}/>
-            {isLoading && <Loader/>}
-            <Paginator/>
-
-            <div>{'packName: ' + objForPagination.packName}</div>
-            <div>{'min: ' + objForPagination.min}</div>
-            <div>{'max: ' + objForPagination.max}</div>
-            <div>{'sortPacks.secondDescription: ' + objForPagination.sortPacks.secondDescription}</div>
-            <div>{'sortPacks.firstNumber: ' + objForPagination.sortPacks.firstNumber}</div>
-            <div>{'pageCount: ' + objForPagination.pageCount}</div>
-            <div>{'page: ' + objForPagination.page}</div>
-        </div>
+        isLoading
+            ? <Loader/>
+            : <div>
+                <AddItemForm/>
+                <RangeFilter/>
+                <CardPacksTable
+                    model={CardPacksTableBody()}
+                    data={data}/>
+                <Paginator/>
+                <div>{'packName: ' + objForPagination.packName}</div>
+                <div>{'min: ' + objForPagination.min}</div>
+                <div>{'max: ' + objForPagination.max}</div>
+                <div>{'sortPacks.secondDescription: ' + objForPagination.sortPacks.secondDescription}</div>
+                <div>{'sortPacks.firstNumber: ' + objForPagination.sortPacks.firstNumber}</div>
+                <div>{'pageCount: ' + objForPagination.pageCount}</div>
+                <div>{'page: ' + objForPagination.page}</div>
+            </div>
     );
 };

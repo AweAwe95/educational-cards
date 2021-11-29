@@ -2,6 +2,7 @@ import {Dispatch} from 'redux';
 import {api, CardPacksResType} from '../api/api';
 import {AppRootStateType} from './store';
 import {setTotalCountPage} from './Packs/packs-filter-reducer';
+import {setLoaderAC} from "./app-reducer";
 
 const initialState = {
     cardPacks: [{
@@ -49,13 +50,14 @@ export const updateCardPacksAC = (data: CardPacksResType) =>
     ({type: 'UPDATE-CARD-PACKS', data} as const);
 
 
-export const getCardPacksTC = () => {
+export const getCardPacksTC = (userId?: string) => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         const {packName, min, max, page, pageCount} = getState().packFilter
         const {firstNumber, secondDescription} = getState().packFilter.sortPacks
         const sortPacks = firstNumber + secondDescription
         console.log(sortPacks);
-        api.getCardPacks(packName, min, max, page, pageCount, sortPacks)
+        dispatch(setLoaderAC(true))
+        api.getCardPacks(packName, min, max, page, pageCount, sortPacks, userId)
             .then(res => {
                 console.dir(res);
                 dispatch(getCardPacksAC(res.data));
@@ -63,35 +65,60 @@ export const getCardPacksTC = () => {
             })
             .catch(e => {
                 console.log('Error');
-            });
+            })
+            .finally(() => {
+                dispatch(setLoaderAC(false))
+            })
     };
 };
 export const addCardPacksTC = (name: string) => {
     return (dispatch: any) => {
+        dispatch(setLoaderAC(true))
         api.createCardPacks(name)
             .then((res) => {
-                // dispatch(createCardPacksAC(res.data))
                 dispatch(getCardPacksTC())
             })
             .catch(e => {
                 const error = e.response.data.error
                 console.log('Error: ' + error);
-            });
+            })
+            .finally(() => {
+                dispatch(setLoaderAC(false))
+            })
     }
 }
 export const deleteCardPacksTC = (id: string) => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: any) => {
+        dispatch(setLoaderAC(true))
         api.deleteCardPacks(id)
             .then((res) => {
-                dispatch(deleteCardPacksAC(id))
+                dispatch(getCardPacksTC())
             })
             .catch(e => {
                 const error = e.response.data.error
                 console.log('Error: ' + error);
-            });
+            })
+            .finally(() => {
+                dispatch(setLoaderAC(false))
+            })
     }
 }
-
+export const updateCardPacksTC = (id: string, title: string) => {
+    return (dispatch: any) => {
+        dispatch(setLoaderAC(true))
+        api.updateCardPacks(id,title)
+            .then((res) => {
+                dispatch(getCardPacksTC())
+            })
+            .catch(e => {
+                const error = e.response.data.error
+                console.log('Error: ' + error);
+            })
+            .finally(() => {
+                dispatch(setLoaderAC(false))
+            })
+    }
+}
 
 export type CardPacksActionTypes =
     ReturnType<typeof getCardPacksAC> |

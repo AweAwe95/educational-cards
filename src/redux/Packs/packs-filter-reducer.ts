@@ -2,7 +2,7 @@ import {Dispatch} from 'redux';
 
 const initialState = {
     packName: '',
-    min: 1,
+    min: 0,
     max: 1000,
     sortPacks: {
         firstNumber: 0,
