@@ -1,18 +1,32 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from "react-redux";
-import {recPassTC, setRecPassErrorAC} from "../../../../redux/recoveryPassword-reducer";
+import {recPassAC, recPassTC, setRecPassErrorAC} from "../../../../redux/recoveryPassword-reducer";
 import {AuthFormikType} from "../../Authorization/AuthorizationForm/AuthorizationForm";
 import {AppRootStateType} from "../../../../redux/store";
 import "./RecoveryPasswordForm.css"
 import {Loader} from "../../../Loader/Loader";
+import * as PATH from "path";
+import * as path from "path";
+import {useNavigate} from "react-router-dom";
 
 export const RecoveryPasswordForm = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const from = useSelector<AppRootStateType, string>(state => state.recoveryPassword.from)
     const message = useSelector<AppRootStateType, string>(state => state.recoveryPassword.message)
     const recPassError = useSelector<AppRootStateType, boolean>(state => state.recoveryPassword.recPassError)
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
+    const status = useSelector<AppRootStateType, boolean>(state => state.app.status)
+
+    useEffect(() => {
+        if (isLoading === true) {
+            navigate(`${path}/${email}`)
+            return function cleanup() {
+                dispatch(recPassAC(" "))
+            }
+        }
+    }, [status])
 
     const formik = useFormik({
         initialValues: {
@@ -32,6 +46,7 @@ export const RecoveryPasswordForm = () => {
             dispatch(recPassTC(values.email, from, message))
         },
     });
+
 
     return (
         <div className="recoveryPasswordFormContainer">
