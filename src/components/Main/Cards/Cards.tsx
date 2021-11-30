@@ -14,6 +14,7 @@ export const Cards = () => {
     const userId = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id)
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
 
+    //useParams
     useEffect(() => {
         dispatch(getCardsTC(userId));
     }, [dispatch, userId]);

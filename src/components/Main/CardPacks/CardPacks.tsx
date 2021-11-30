@@ -17,23 +17,28 @@ export const CardPacks = () => {
     const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
     const objForPagination = useSelector<AppRootStateType, PacksFilterReducerStateType>(state => state.packFilter);
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
+    const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
+
 
     const {
         packName,
         min,
         max,
         page,
-        pageCount
+        pageCount,
+        isMyCardsPacks
     } = useSelector<AppRootStateType, PacksFilterReducerStateType>(state => state.packFilter);
+
     const {
         firstNumber,
         secondDescription
     } = useSelector<AppRootStateType, { firstNumber: number, secondDescription: string }>(state => state.packFilter.sortPacks);
 
-
     useEffect(() => {
-        dispatch(getCardPacksTC());
-    }, [packName, min, max, page, pageCount, firstNumber, secondDescription, dispatch]);
+        // 2 варианта реализации
+        isMyCardsPacks ? dispatch(getCardPacksTC(user_id)) : dispatch(getCardPacksTC())
+        // dispatch(getCardPacksTC(isMyCardsPacks ? user_id : undefined))
+    }, [packName, min, max, page, pageCount, firstNumber, secondDescription, isMyCardsPacks, dispatch]);
 
     return (
         isLoading
@@ -42,7 +47,7 @@ export const CardPacks = () => {
                 <AddItemForm/>
                 <RangeFilter/>
                 <CardPacksTable
-                    model={CardPacksTableBody()}
+                    model={CardPacksTableBody({firstNumber})}
                     data={data}/>
                 <Paginator/>
                 <div>{'packName: ' + objForPagination.packName}</div>

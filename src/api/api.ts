@@ -29,9 +29,9 @@ export const api = {
     logout() {
         return instance.delete('auth/me', {});
     },
-    getCardPacks(packName: string, min: number, max: number, page: number, pageCount: number, sortPacks: string, user_id?: string) {
+    getCardPacks(dataForPacksGetRequest: dataForPacksGetRequest) {
         return instance.get<CardPacksResType>('cards/pack', {
-            params: {packName, min, max, page, pageCount, sortPacks, user_id}
+            params: dataForPacksGetRequest
         });
     },
     createCardPacks(name: string) {
@@ -57,6 +57,15 @@ export const api = {
     }
 };
 
+export type dataForPacksGetRequest = {
+    packName: string
+    min: number
+    max: number
+    page: number
+    pageCount: number
+    sortPacks: string
+    user_id?: string
+}
 
 export type LoginDataType = {
     created?: string

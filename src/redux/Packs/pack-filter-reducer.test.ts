@@ -1,7 +1,7 @@
 import {
     packsFilterReducer,
     PacksFilterReducerStateType,
-    setFirstNumberSort,
+    setFirstNumberSort, setIsMyCardsPacks,
     setMaxCardsInPack,
     setMinCardsInPack,
     setPackName,
@@ -26,6 +26,7 @@ beforeEach(() => {
         page: 1,
         pageCount: 4,
         totalCountPage: 0,
+        isMyCardsPacks: false,
     };
 });
 
@@ -37,7 +38,6 @@ test('min should be changed', () => {
     const endState = packsFilterReducer(initialState, setMinCardsInPack(5));
     expect(endState.min).toBe(5);
 });
-
 test('max should be changed', () => {
     const endState = packsFilterReducer(initialState, setMaxCardsInPack(100));
     expect(endState.max).toBe(100);
@@ -61,5 +61,9 @@ test('pageCount should be changed', () => {
 test('totalCountPage should be changed', () => {
     const endState = packsFilterReducer(initialState, setTotalCountPage(4));
     expect(endState.totalCountPage).toBe(4);
+});
+test('isMyCardsPacks should be changed', () => {
+    const endState = packsFilterReducer(initialState, setIsMyCardsPacks(true));
+    expect(endState.isMyCardsPacks).toBe(true);
 });
 

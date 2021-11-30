@@ -1,23 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Range} from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import s from './RangeFilter.module.css';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setMaxCardsInPack, setMinCardsInPack} from '../../../redux/Packs/packs-filter-reducer';
+import {AppRootStateType} from '../../../redux/store';
 
 
 export const RangeFilter = () => {
-    // let maxValueFixed
-    // useEffect(() => {
-    //     maxValueFixed = maxCards
-    // })
+    let minCardsCount = useSelector<AppRootStateType, number>(state => state.packFilter.min);
+    let maxCardsCount = useSelector<AppRootStateType, number>(state => state.packFilter.max);
 
-    // const minCards = useSelector<AppRootStateType, number>(state => state.packFilter.min)
-    // const maxCards = useSelector<AppRootStateType, number>(state => state.packFilter.max)
-    const dispatch = useDispatch()
+    let min = useSelector<AppRootStateType, number>(state => state.cardPacks.minCardsCount);
+    let max = useSelector<AppRootStateType, number>(state => state.cardPacks.maxCardsCount);
+    const dispatch = useDispatch();
 
-    const [value1, setValue1] = useState(0);
-    const [value2, setValue2] = useState(200);
+    useEffect(() => {
+        if (maxCardsCount > max) setValue2(max);
+        // if (minCardsCount < min) setValue1(min);
+    }, [min, max]);
+
+    const [value1, setValue1] = useState(minCardsCount);
+    const [value2, setValue2] = useState(maxCardsCount);
 
     const onChangeRangeValue = (values: number[]) => {
         setValue1(values[0]);
@@ -25,16 +29,16 @@ export const RangeFilter = () => {
     };
 
     const addRangeFilter = () => {
-        dispatch(setMinCardsInPack(value1))
-        dispatch(setMaxCardsInPack(value2))
-    }
+        dispatch(setMinCardsInPack(value1));
+        dispatch(setMaxCardsInPack(value2));
+    };
 
     return (
         <div className={s.rangeContainer}>
             <span>{value1}</span>
             <Range
-                min={0}
-                max={200}
+                min={min}
+                max={max}
                 onChange={onChangeRangeValue}
                 value={[value1, value2]}
                 allowCross={false}/>
@@ -43,4 +47,24 @@ export const RangeFilter = () => {
         </div>
     );
 };
+
+// нативный кусок рэнжа
+// const [values, setValues] = useState<number[]>([props.min, props.max]);
+//
+// const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
+//     if (+e.currentTarget.value < values[1]) {
+//         setValues([+e.currentTarget.value, values[1]]);
+//     }
+// }
+// const onChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
+//     if (+e.currentTarget.value > values[0]) {
+//         setValues([values[0], +e.currentTarget.value]);
+//     }
+// }
+//
+// const onMouseUpHandler = () => {
+//     dispatch(props.setMinMaxAction({minCardsCount: values[0], maxCardsCount: values[1]}))
+//     // dispatch(setMinMaxCardsCount({minCardsCount: 20, maxCardsCount: 60}))
+// }
+
 

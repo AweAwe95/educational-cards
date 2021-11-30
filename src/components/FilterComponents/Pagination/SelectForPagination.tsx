@@ -13,11 +13,11 @@ export const SelectForPaginator = () => {
 
     return (
         <div className={s.selectContainer}>
-            <select onChange={dispatchPageSize}>
+            <select onChange={dispatchPageSize} defaultValue={20}>
                 <option>3</option>
                 <option>5</option>
                 <option>10</option>
-                <option selected>20</option>
+                <option>20</option>
                 <option>50</option>
                 <option>100</option>
             </select>
