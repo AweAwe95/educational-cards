@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {setPackName} from '../../../redux/Packs/packs-filter-reducer';
+import {setPackName} from '../../../redux/Packs/cards-packs-filter-reducer';
 
 export const AddItemForm = React.memo(() => {
     const dispatch = useDispatch();

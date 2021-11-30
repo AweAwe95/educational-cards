@@ -24,7 +24,7 @@ const initialState = {
     minGrade: 0,
     page: 1,
     pageCount: 0,
-    packUserId: 0,
+    packUserId: '',
     token: "",
     tokenDeathTime: 15
 };
@@ -46,29 +46,28 @@ export const setCardsAC = (data: CardsResType) =>
 export const getCardsTC = (id: string | undefined) => {
     return (dispatch: Dispatch) => {
         dispatch(setLoaderAC(true))
-        // @ts-ignore
         api.getCards(id)
             .then(res => {
                 dispatch(setCardsAC(res.data));
             })
             .catch(e => {
-                // console.log('Error: ' + e.response.data.error || e.message);
-                const error = e.response.data.error
-                    ? e.response.data.error
-                    : (e.message + 'more details in console');
-                console.log('Error: ' + error);
+                console.log('Error: ' + e.response.data.error || e.message);
+                // const error = e.response.data.error
+                //     ? e.response.data.error
+                //     : (e.message + 'more details in console');
+                // console.log('Error: ' + error);
             })
             .finally(() => {
             dispatch(setLoaderAC(false))
         })
     };
 };
-export const createCardTC = (packsId: string, question: string) => {
+export const createCardTC = (cardsPack_id: string | undefined, question: string) => {
     return (dispatch: any) => {
         dispatch(setLoaderAC(true))
-        api.createCard(packsId, question)
+        api.createCard(cardsPack_id, question)
             .then(() => {
-                dispatch(getCardsTC(packsId));
+                dispatch(getCardsTC(cardsPack_id));
             })
             .catch(e => {
                 // console.log('Error: ' + e.response.data.error || e.message);

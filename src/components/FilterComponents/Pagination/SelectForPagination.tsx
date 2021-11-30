@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import {useDispatch} from 'react-redux';
-import {setPageCount} from '../../../redux/Packs/packs-filter-reducer';
+import {setPageCount} from '../../../redux/Packs/cards-packs-filter-reducer';
 import s from './SelectForPagination.module.css';
 
 export const SelectForPaginator = () => {

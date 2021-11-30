@@ -1,10 +1,10 @@
 import React, {CSSProperties, ReactNode, useCallback, useState} from 'react';
-import {addCardPacksTC, deleteCardPacksTC} from '../../../redux/cardPacks-reducer';
+import {createCardsPackTC, deleteCardPacksTC} from '../../../redux/cardPacks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../redux/store';
 import {CardPackType} from '../../../api/api';
 import {NavLink} from 'react-router-dom';
-import {setIsMyCardsPacks} from '../../../redux/Packs/packs-filter-reducer';
+import {setIsMyCardsPacks} from '../../../redux/Packs/cards-packs-filter-reducer';
 
 export interface ITableModel {
     title: (index: number) => ReactNode;
@@ -38,16 +38,16 @@ export const CardPacksTable: React.FC<ITableProps> = (
     }
 ) => {
     const dispatch = useDispatch();
-    const [newNamePacks, setNewNamePacks] = useState<string>('');
+    const [newNamePack, setNewNamePack] = useState<string>('');
     const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
-    const currentUserId = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
-    const isMyCardsPacks = useSelector<AppRootStateType, boolean>(state => state.packFilter.isMyCardsPacks);
+    const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
+    const isMyCardsPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPackFilter.isMyCardsPacks);
 
-    const addCardPacks = useCallback((name: string) => {
-        dispatch(addCardPacksTC(name));
+    const addCardPack = useCallback((name: string) => {
+        dispatch(createCardsPackTC(name));
     }, [dispatch]);
 
-    const deleteCardPacks = useCallback((id: string) => {
+    const deleteCardPack = useCallback((id: string) => {
         dispatch(deleteCardPacksTC(id));
     }, [dispatch]);
 
@@ -64,10 +64,13 @@ export const CardPacksTable: React.FC<ITableProps> = (
             }}
         >
             table
-            <input type='text' value={newNamePacks} onChange={e => setNewNamePacks(e.currentTarget.value)}/>
-            <button type='button' onClick={() => addCardPacks(newNamePacks)}>
-                add
-            </button>
+            <div>
+                <input type='text' value={newNamePack} onChange={e => setNewNamePack(e.currentTarget.value)}/>
+                <button type='button' onClick={() => addCardPack(newNamePack)}>
+                    add
+                </button>
+            </div>
+
             <div>
                 <input type='checkbox' checked={isMyCardsPacks}
                        onChange={e => dispatch(setIsMyCardsPacks(e.currentTarget.checked))}
@@ -116,9 +119,9 @@ export const CardPacksTable: React.FC<ITableProps> = (
                         }}
                     >
                         {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
-                        {currentUserId === dataItem.user_id
+                        {user_id === dataItem.user_id
                             ? <>
-                                <button type='button' onClick={() => deleteCardPacks(dataItem._id)}>
+                                <button type='button' onClick={() => deleteCardPack(dataItem._id)}>
                                     del
                                 </button>
                                 <button type='button'>

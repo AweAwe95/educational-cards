@@ -6,7 +6,7 @@ import {CardPacksTableBody} from './CardPacksTableBody';
 import {Paginator} from '../../FilterComponents/Pagination/Pagination';
 import {AddItemForm} from '../../FilterComponents/SearchInput/SearchInput';
 import {RangeFilter} from '../../FilterComponents/RangeFilter/RangeFilter';
-import {PacksFilterReducerStateType} from '../../../redux/Packs/packs-filter-reducer';
+import {PacksFilterReducerStateType} from '../../../redux/Packs/cards-packs-filter-reducer';
 import {getCardPacksTC} from '../../../redux/cardPacks-reducer';
 import {Loader} from '../../Loader/Loader';
 import {CardPacksTable} from './CardPacksTable';
@@ -15,7 +15,7 @@ import {CardPacksTable} from './CardPacksTable';
 export const CardPacks = () => {
     const dispatch = useDispatch();
     const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
-    const objForPagination = useSelector<AppRootStateType, PacksFilterReducerStateType>(state => state.packFilter);
+    const objForPagination = useSelector<AppRootStateType, PacksFilterReducerStateType>(state => state.cardsPackFilter);
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
     const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
 
@@ -27,12 +27,12 @@ export const CardPacks = () => {
         page,
         pageCount,
         isMyCardsPacks
-    } = useSelector<AppRootStateType, PacksFilterReducerStateType>(state => state.packFilter);
+    } = useSelector<AppRootStateType, PacksFilterReducerStateType>(state => state.cardsPackFilter);
 
     const {
         firstNumber,
         secondDescription
-    } = useSelector<AppRootStateType, { firstNumber: number, secondDescription: string }>(state => state.packFilter.sortPacks);
+    } = useSelector<AppRootStateType, { firstNumber: number, secondDescription: string }>(state => state.cardsPackFilter.sortPacks);
 
     useEffect(() => {
         // 2 варианта реализации

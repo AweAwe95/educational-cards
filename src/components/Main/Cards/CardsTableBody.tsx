@@ -35,10 +35,10 @@ export const CardsTableBody = (): ITableModel[] => [
     },
     {
         title: (i: number) => (
-            <div key={i} style={{width: '100%'}}> url </div>
+            <div key={i} style={{width: '100%'}}> created </div>
         ),
         render: (d, i: number) => (
-            <div key={i} style={{width: '100%'}}></div>
+            <div key={i} style={{width: '100%'}}>{d.created}</div>
         ),
     },
 ];

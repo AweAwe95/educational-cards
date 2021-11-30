@@ -1,7 +1,7 @@
 import {ITableModel} from './CardPacksTable';
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {setFirstNumberSort, setSecondDescriptionSort} from '../../../redux/Packs/packs-filter-reducer';
+import {setFirstNumberSort, setSecondDescriptionSort} from '../../../redux/Packs/cards-packs-filter-reducer';
 
 export type CardPacksTableBodyPropsType = {
     firstNumber: number

@@ -43,11 +43,11 @@ export const api = {
     updateCardPacks(id: string, title: string) {
         return instance.put<CardPacksResType>(`cards/pack`, {cardsPack: {id, title}});
     },
-    getCards(packsId: string) {
-        return instance.get<CardsResType>(`cards/card/?cardsPack_id=${packsId}`);
+    getCards(cardsPack_id: string | undefined) {
+        return instance.get<CardsResType>(`cards/card/?cardsPack_id=${cardsPack_id}`);
     },
-    createCard(packsId: string, question: string) {
-        return instance.post(`cards/card`, {card: {packsId, question}});
+    createCard(cardsPack_id: string | undefined, question: string) {
+        return instance.post(`cards/card`, {card: {cardsPack_id, question}});
     },
     deleteCard(cardId: string) {
         return instance.delete(`cards/card/?id=${cardId}`);
@@ -125,7 +125,7 @@ export type CardsResType = {
     minGrade: number
     page: number
     pageCount: number
-    packUserId: number
+    packUserId: string
     token: string
     tokenDeathTime: number
 }

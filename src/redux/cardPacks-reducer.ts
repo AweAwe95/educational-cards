@@ -1,7 +1,7 @@
 import {Dispatch} from 'redux';
 import {api, CardPacksResType} from '../api/api';
 import {AppRootStateType} from './store';
-import {setTotalCountPage} from './Packs/packs-filter-reducer';
+import {setTotalCountPage} from './Packs/cards-packs-filter-reducer';
 import {setLoaderAC} from './app-reducer';
 
 const initialState = {
@@ -52,8 +52,8 @@ export const updateCardPacksAC = (data: CardPacksResType) =>
 
 export const getCardPacksTC = (user_id?: string) => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
-        const {packName, min, max, page, pageCount} = getState().packFilter
-        const {firstNumber, secondDescription} = getState().packFilter.sortPacks
+        const {packName, min, max, page, pageCount} = getState().cardsPackFilter
+        const {firstNumber, secondDescription} = getState().cardsPackFilter.sortPacks
         const sortPacks = firstNumber + secondDescription
         dispatch(setLoaderAC(true))
         const dataForPacksGetRequest = {packName, min, max, page, pageCount, sortPacks, user_id}
@@ -70,7 +70,7 @@ export const getCardPacksTC = (user_id?: string) => {
             })
     };
 };
-export const addCardPacksTC = (name: string) => {
+export const createCardsPackTC = (name: string) => {
     return (dispatch: any) => {
         dispatch(setLoaderAC(true))
         api.createCardPacks(name)

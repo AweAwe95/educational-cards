@@ -14,7 +14,7 @@ const initialState = {
     isMyCardsPacks: false,
 };
 
-export const packsFilterReducer = (state: PacksFilterReducerStateType = initialState, action: ActionsType): PacksFilterReducerStateType => {
+export const cardsPacksFilterReducer = (state: PacksFilterReducerStateType = initialState, action: ActionsType): PacksFilterReducerStateType => {
     switch (action.type) {
         case 'PACK-FILTER/SET-PACKNAME': {
             return {...state, packName: action.packName};
