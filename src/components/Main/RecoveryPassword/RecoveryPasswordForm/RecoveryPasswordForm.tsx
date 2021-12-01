@@ -6,9 +6,9 @@ import {AuthFormikType} from "../../Authorization/AuthorizationForm/Authorizatio
 import {AppRootStateType} from "../../../../redux/store";
 import "./RecoveryPasswordForm.css"
 import {Loader} from "../../../Loader/Loader";
-import * as PATH from "path";
-import * as path from "path";
-import {useNavigate} from "react-router-dom";
+
+import {Route, useNavigate} from "react-router-dom";
+import {setLoaderAC} from "../../../../redux/app-reducer";
 
 export const RecoveryPasswordForm = () => {
     const navigate = useNavigate()
@@ -17,16 +17,16 @@ export const RecoveryPasswordForm = () => {
     const message = useSelector<AppRootStateType, string>(state => state.recoveryPassword.message)
     const recPassError = useSelector<AppRootStateType, boolean>(state => state.recoveryPassword.recPassError)
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
-    const status = useSelector<AppRootStateType, boolean>(state => state.app.status)
+    // const status = useSelector<AppRootStateType, boolean>(state => state.app.status)
 
-    useEffect(() => {
-        if (isLoading === true) {
-            navigate(`${path}/${email}`)
-            return function cleanup() {
-                dispatch(recPassAC(" "))
-            }
-        }
-    }, [status])
+    // useEffect(() => {
+    //     if (isLoading === true) {
+    //         navigate(`${Route.}/${email}`)
+    //         return function cleanup() {
+    //             dispatch(setLoaderAC(true))
+    //         }
+    //     }
+    // }, [status])
 
     const formik = useFormik({
         initialValues: {

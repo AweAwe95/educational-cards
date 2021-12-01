@@ -8,7 +8,7 @@ export const ModalCheckEmail = memo(() => {
 
     const {email} = useParams<string>()
     return (
-        <div>
+        <div className={s.form}>
             <div className={s.container}>
                 <span className={s.title}>it-incubator</span>
                 <Icon/>
