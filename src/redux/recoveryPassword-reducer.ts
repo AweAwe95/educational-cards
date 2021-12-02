@@ -7,7 +7,8 @@ const initialState = {
     isPasRec: false,
     from: "ai73a@yandex.by",
     message: `<div style="background-color: lime; padding: 15px"> password recovery link: <a href='http://localhost:3000/new-password/$token$'> link</a></div>`,
-    recPassError: false
+    recPassError: false,
+    isMailSent: false
 }
 
 export const recoveryPasswordReducer = (state: RecPassStateType = initialState, action: ActionsType): RecPassStateType => {
@@ -20,6 +21,9 @@ export const recoveryPasswordReducer = (state: RecPassStateType = initialState, 
         }
         case "RECOVERY/SET-REC-PASS-ERROR": {
             return {...state, recPassError: action.recPassError}
+        }
+        case "RECOVERY/IS-MAIL-SENT": {
+            return {...state, isMailSent: action.isMailSent}
         }
         default: {
             return state
@@ -34,12 +38,18 @@ export const setRecPassErrorAC = (recPassError: boolean) => ({
     type: "RECOVERY/SET-REC-PASS-ERROR",
     recPassError
 } as const)
+export const setIsMailSentAC = (isMailSent: boolean) => ({
+    type: "RECOVERY/IS-MAIL-SENT",
+    isMailSent
+} as const)
 
 export const recPassTC = (email: string, from: string, message: string) => {
     return (dispatch: Dispatch) => {
         dispatch(setLoaderAC(true))
         api.emailUser(email, from, message)
-            .then()
+            .then(()=>{
+                dispatch(setIsMailSentAC(true))
+            })
             .finally(() => dispatch(setLoaderAC(false)))
     }
 }
@@ -63,3 +73,4 @@ type ActionsType =
     | ReturnType<typeof recPassAC>
     | ReturnType<typeof isPassRecAC>
     | ReturnType<typeof setRecPassErrorAC>
+    | ReturnType<typeof setIsMailSentAC>
