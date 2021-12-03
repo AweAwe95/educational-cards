@@ -1,18 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from "react-redux";
-import {recPassTC, setRecPassErrorAC} from "../../../../redux/recoveryPassword-reducer";
+import {recPassAC, recPassTC, setRecPassErrorAC} from "../../../../redux/recoveryPassword-reducer";
 import {AuthFormikType} from "../../Authorization/AuthorizationForm/AuthorizationForm";
 import {AppRootStateType} from "../../../../redux/store";
 import "./RecoveryPasswordForm.css"
 import {Loader} from "../../../Loader/Loader";
 
+import {Route, useNavigate} from "react-router-dom";
+import {setLoaderAC} from "../../../../redux/app-reducer";
+import {ModalCheckEmail} from "../ModalCheckEmail";
+
 export const RecoveryPasswordForm = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const from = useSelector<AppRootStateType, string>(state => state.recoveryPassword.from)
     const message = useSelector<AppRootStateType, string>(state => state.recoveryPassword.message)
     const recPassError = useSelector<AppRootStateType, boolean>(state => state.recoveryPassword.recPassError)
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
+
+    const isMailSent = useSelector<AppRootStateType, boolean>(state => state.recoveryPassword.isMailSent)
 
     const formik = useFormik({
         initialValues: {
@@ -33,8 +40,10 @@ export const RecoveryPasswordForm = () => {
         },
     });
 
+
     return (
-        <div className="recoveryPasswordFormContainer">
+        (!isMailSent)
+            ? <div className="recoveryPasswordFormContainer">
             <form onSubmit={formik.handleSubmit}>
                 <label htmlFor={'email'}><b>Forgot your password?</b></label>
                 <input
@@ -54,5 +63,6 @@ export const RecoveryPasswordForm = () => {
             </form>
             {recPassError && <h3 className={'recPassError'}>SOMETHING GOING WRONG</h3>}
         </div>
+            : <ModalCheckEmail/>
     );
 };

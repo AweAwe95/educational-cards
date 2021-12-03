@@ -14,6 +14,7 @@ import {LoginDataType} from "./api/api";
 import {isAuthorizedTC} from "./redux/authorization-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./redux/store";
+import {ModalCheckEmail} from "./components/Main/RecoveryPassword/ModalCheckEmail";
 
 function App() {
     const authData = useSelector<AppRootStateType, LoginDataType>(state => state.authorization.data);
@@ -45,6 +46,7 @@ function App() {
                     <Route path={'/new-password/:serverToken'} element={<NewPassword/>}></Route>
                     <Route path={'/cards/:cardsPack_Id'} element={isLoggedIn ?<Cards/> : <Navigate to={'/auth'}/>}></Route>
                     <Route path={'/packs'} element={isLoggedIn ? <CardPacks/> : <Navigate to={'/auth'}/>}></Route>
+                    <Route path={'/check_email/:email'} element={<ModalCheckEmail/>}></Route>
                 </Routes>
             </div>
         </div>
