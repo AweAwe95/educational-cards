@@ -45,11 +45,11 @@ export const CardPacksTable: React.FC<ITableProps> = (
 
     const addCardPack = useCallback((newPackName: string) => {
         dispatch(createCardsPackTC(newPackName, user_id, isMyCardsPacks));
-    }, [dispatch]);
+    }, [user_id, isMyCardsPacks, dispatch]);
 
     const deleteCardPack = useCallback((id: string) => {
         dispatch(deleteCardPacksTC(id, user_id, isMyCardsPacks));
-    }, [dispatch]);
+    }, [user_id, isMyCardsPacks, dispatch]);
 
     return (
         <div

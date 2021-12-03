@@ -17,8 +17,7 @@ export const RangeFilter = () => {
 
     useEffect(() => {
         if (maxCardsCount > max) setValue2(max);
-        // if (minCardsCount < min) setValue1(min);
-    }, [min, max]);
+    }, [min, max, maxCardsCount]);
 
     const [value1, setValue1] = useState(minCardsCount);
     const [value2, setValue2] = useState(maxCardsCount);

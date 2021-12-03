@@ -1,5 +1,3 @@
-import {Dispatch} from 'redux';
-
 const initialState = {
     packName: '',
     min: 0,
@@ -77,10 +75,6 @@ export const setIsMyCardsPacks = (isMyCardsPacks: boolean) => {
     return {type: 'PACK-FILTER/SET-IS-MY-CARDSPACKS', isMyCardsPacks} as const;
 };
 
-export const loginTC = () => {
-    return (dispatch: Dispatch) => {
-    };
-};
 
 export type PacksFilterReducerStateType = typeof initialState
 type ActionsType = ReturnType<typeof setPackName>

@@ -1,18 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useFormik} from 'formik';
-import {useDispatch, useSelector} from "react-redux";
-import {recPassAC, recPassTC, setRecPassErrorAC} from "../../../../redux/recoveryPassword-reducer";
-import {AuthFormikType} from "../../Authorization/AuthorizationForm/AuthorizationForm";
-import {AppRootStateType} from "../../../../redux/store";
-import "./RecoveryPasswordForm.css"
-import {Loader} from "../../../Loader/Loader";
+import {useDispatch, useSelector} from 'react-redux';
+import {recPassTC, setRecPassErrorAC} from '../../../../redux/recoveryPassword-reducer';
+import {AuthFormikType} from '../../Authorization/AuthorizationForm/AuthorizationForm';
+import {AppRootStateType} from '../../../../redux/store';
+import './RecoveryPasswordForm.css';
+import {Loader} from '../../../Loader/Loader';
 
-import {Route, useNavigate} from "react-router-dom";
-import {setLoaderAC} from "../../../../redux/app-reducer";
-import {ModalCheckEmail} from "../ModalCheckEmail";
+import {ModalCheckEmail} from '../ModalCheckEmail';
 
 export const RecoveryPasswordForm = () => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const from = useSelector<AppRootStateType, string>(state => state.recoveryPassword.from)
     const message = useSelector<AppRootStateType, string>(state => state.recoveryPassword.message)

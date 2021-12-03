@@ -34,7 +34,7 @@ export const CardPacks = () => {
 
     useEffect(() => {
         dispatch(getCardPacksTC(isMyCardsPacks ? user_id : undefined));
-    }, [packName, min, max, page, pageCount, firstNumber, secondDescription, isMyCardsPacks, dispatch]);
+    }, [packName, min, max, page, pageCount, firstNumber, secondDescription, isMyCardsPacks, user_id, dispatch]);
 
     return (
         isLoading

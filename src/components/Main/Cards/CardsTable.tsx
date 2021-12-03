@@ -1,9 +1,8 @@
 import React, {CSSProperties, ReactNode, useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../redux/store';
-import {CardsResType, CardType} from '../../../api/api';
+import {CardsResType} from '../../../api/api';
 import {createCardTC, deleteCardTC} from '../../../redux/cards-reducer';
-import {deleteCardPacksTC} from '../../../redux/cardPacks-reducer';
 
 export interface ITableModel {
     title: (index: number) => ReactNode;
@@ -11,9 +10,6 @@ export interface ITableModel {
 }
 
 interface ITableProps {
-// loading: boolean;
-// error: string;
-// logoutCallback: () => void;
     model: ITableModel[];
     data: any;
     headerStyle?: CSSProperties,
@@ -25,11 +21,7 @@ interface ITableProps {
 
 export const CardsTable: React.FC<ITableProps> = (
     {
-// loading,
-// error,
-// logoutCallback,
         model,
-        // data,
         headerStyle,
         tableStyle,
         rowsStyle,
@@ -45,11 +37,11 @@ export const CardsTable: React.FC<ITableProps> = (
 
     const addCard = useCallback((newCardName: string) => {
         dispatch(createCardTC(cardsPack_id, newCardName));
-    }, [dispatch]);
+    }, [cardsPack_id, dispatch]);
 
     const deleteCard = useCallback((cardId: string) => {
         dispatch(deleteCardTC(cardsPack_id, cardId));
-    }, [dispatch]);
+    }, [cardsPack_id, dispatch]);
 
     return (
         <div
