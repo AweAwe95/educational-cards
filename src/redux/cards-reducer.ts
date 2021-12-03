@@ -43,10 +43,10 @@ export const setCardsAC = (data: CardsResType) =>
     ({type: 'SET-CARDS', data} as const);
 
 
-export const getCardsTC = (id: string | undefined) => {
+export const getCardsTC = (cardsPack_id: string | undefined) => {
     return (dispatch: Dispatch) => {
         dispatch(setLoaderAC(true))
-        api.getCards(id)
+        api.getCards(cardsPack_id)
             .then(res => {
                 dispatch(setCardsAC(res.data));
             })
@@ -62,31 +62,31 @@ export const getCardsTC = (id: string | undefined) => {
         })
     };
 };
-export const createCardTC = (cardsPack_id: string | undefined, question: string) => {
+export const createCardTC = (cardsPack_id: string | undefined, newCardName: string) => {
     return (dispatch: any) => {
         dispatch(setLoaderAC(true))
-        api.createCard(cardsPack_id, question)
+        api.createCard(cardsPack_id, newCardName)
             .then(() => {
                 dispatch(getCardsTC(cardsPack_id));
             })
             .catch(e => {
-                // console.log('Error: ' + e.response.data.error || e.message);
-                const error = e.response.data.error
-                    ? e.response.data.error
-                    : (e.message + 'more details in console');
-                console.log('Error: ' + error);
+                console.log('Error: ' + e.response.data.error || e.message);
+                // const error = e.response.data.error
+                //     ? e.response.data.error
+                //     : (e.message + 'more details in console');
+                // console.log('Error: ' + error);
             })
             .finally(() => {
                 dispatch(setLoaderAC(false))
             })
     };
 };
-export const deleteCardTC = (packsId: string, cardId: string) => {
+export const deleteCardTC = (cardsPack_id: string | undefined, cardId: string) => {
     return (dispatch: any) => {
         dispatch(setLoaderAC(true))
         api.deleteCard(cardId)
             .then(() => {
-                dispatch(getCardsTC(packsId));
+                dispatch(getCardsTC(cardsPack_id));
             })
             .catch(e => {
                 // console.log('Error: ' + e.response.data.error || e.message);

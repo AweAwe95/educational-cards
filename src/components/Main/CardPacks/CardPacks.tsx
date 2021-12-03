@@ -15,10 +15,8 @@ import {CardPacksTable} from './CardPacksTable';
 export const CardPacks = () => {
     const dispatch = useDispatch();
     const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
-    const objForPagination = useSelector<AppRootStateType, PacksFilterReducerStateType>(state => state.cardsPackFilter);
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
     const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
-
 
     const {
         packName,
@@ -35,9 +33,7 @@ export const CardPacks = () => {
     } = useSelector<AppRootStateType, { firstNumber: number, secondDescription: string }>(state => state.cardsPackFilter.sortPacks);
 
     useEffect(() => {
-        // 2 варианта реализации
-        isMyCardsPacks ? dispatch(getCardPacksTC(user_id)) : dispatch(getCardPacksTC())
-        // dispatch(getCardPacksTC(isMyCardsPacks ? user_id : undefined))
+        dispatch(getCardPacksTC(isMyCardsPacks ? user_id : undefined));
     }, [packName, min, max, page, pageCount, firstNumber, secondDescription, isMyCardsPacks, dispatch]);
 
     return (
@@ -50,13 +46,6 @@ export const CardPacks = () => {
                     model={CardPacksTableBody({firstNumber})}
                     data={data}/>
                 <Paginator/>
-                <div>{'packName: ' + objForPagination.packName}</div>
-                <div>{'min: ' + objForPagination.min}</div>
-                <div>{'max: ' + objForPagination.max}</div>
-                <div>{'sortPacks.secondDescription: ' + objForPagination.sortPacks.secondDescription}</div>
-                <div>{'sortPacks.firstNumber: ' + objForPagination.sortPacks.firstNumber}</div>
-                <div>{'pageCount: ' + objForPagination.pageCount}</div>
-                <div>{'page: ' + objForPagination.page}</div>
             </div>
     );
 };

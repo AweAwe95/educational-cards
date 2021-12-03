@@ -2,7 +2,8 @@ import React, {CSSProperties, ReactNode, useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../redux/store';
 import {CardsResType, CardType} from '../../../api/api';
-import {createCardTC} from '../../../redux/cards-reducer';
+import {createCardTC, deleteCardTC} from '../../../redux/cards-reducer';
+import {deleteCardPacksTC} from '../../../redux/cardPacks-reducer';
 
 export interface ITableModel {
     title: (index: number) => ReactNode;
@@ -37,13 +38,17 @@ export const CardsTable: React.FC<ITableProps> = (
     }
 ) => {
     const dispatch = useDispatch();
-    const [newNameCard, setNewNameCard] = useState<string>('');
+    const [newCardName, setNewCardName] = useState<string>('');
     const cardsObj = useSelector<AppRootStateType, CardsResType>(state => state.cards);
     const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
     const data = cardsObj.cards;
 
-    const addCard = useCallback((name: string) => {
-        dispatch(createCardTC(cardsPack_id, name));
+    const addCard = useCallback((newCardName: string) => {
+        dispatch(createCardTC(cardsPack_id, newCardName));
+    }, [dispatch]);
+
+    const deleteCard = useCallback((cardId: string) => {
+        dispatch(deleteCardTC(cardsPack_id, cardId));
     }, [dispatch]);
 
     return (
@@ -60,8 +65,8 @@ export const CardsTable: React.FC<ITableProps> = (
             table
             {user_id === cardsObj.packUserId
                 ? <div>
-                    <input type='text' value={newNameCard} onChange={e => setNewNameCard(e.currentTarget.value)}/>
-                    <button type='button' onClick={() => addCard(newNameCard)}>
+                    <input type='text' value={newCardName} onChange={e => setNewCardName(e.currentTarget.value)}/>
+                    <button type='button' onClick={() => addCard(newCardName)}>
                         add
                     </button>
                 </div>
@@ -102,6 +107,16 @@ export const CardsTable: React.FC<ITableProps> = (
                         }}>
 
                         {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
+                        {user_id === cardsObj.packUserId
+                            ? <>
+                                <button type='button' onClick={() => deleteCard(dataItem._id)}>
+                                    del
+                                </button>
+                                <button type='button'>
+                                    update
+                                </button>
+                            </>
+                            : null}
                     </div>
                 ))}
             </div>

@@ -2,6 +2,7 @@ import {ITableModel} from './CardPacksTable';
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {setFirstNumberSort, setSecondDescriptionSort} from '../../../redux/Packs/cards-packs-filter-reducer';
+import {EditableSpan} from '../../Common/EditableSpan';
 
 export type CardPacksTableBodyPropsType = {
     firstNumber: number
@@ -11,8 +12,8 @@ export const CardPacksTableBody = (props: CardPacksTableBodyPropsType): ITableMo
     const dispatch = useDispatch();
 
     const sliceNameFunction = (name: any) => {
-        const some = name.split(['↕'])
-        return some[0]
+        const some = name.split(['↕']);
+        return some[0];
     };
 
     return ([
@@ -21,14 +22,17 @@ export const CardPacksTableBody = (props: CardPacksTableBodyPropsType): ITableMo
                     <div key={i} style={{width: '100%', display: 'flex'}}>
                         <button onClick={(e) => {
                             dispatch(setSecondDescriptionSort(sliceNameFunction((e.target as HTMLElement).innerText)));
-                            dispatch(setFirstNumberSort(!!props.firstNumber ? 0 : 1))
+                            dispatch(setFirstNumberSort(!!props.firstNumber ? 0 : 1));
                         }}>
                             name↕
                         </button>
                     </div>
                 ),
                 render: (d, i: number) => (
-                    <div key={i} style={{width: '100%'}}>{d.name}</div>
+                    <div key={i} style={{width: '100%'}}>
+                        <EditableSpan title={d.name} packId={d._id} user_id={d.user_id}/>
+                        {/*{d.name}*/}
+                    </div>
                 ),
             },
             {
@@ -36,7 +40,7 @@ export const CardPacksTableBody = (props: CardPacksTableBodyPropsType): ITableMo
                     <div key={i} style={{width: '100%', display: 'flex'}}>
                         <button onClick={(e) => {
                             dispatch(setSecondDescriptionSort(sliceNameFunction((e.target as HTMLElement).innerText)));
-                            dispatch(setFirstNumberSort(!!props.firstNumber ? 0 : 1))
+                            dispatch(setFirstNumberSort(!!props.firstNumber ? 0 : 1));
                         }}>
                             cardsCount↕
                         </button>
@@ -51,7 +55,7 @@ export const CardPacksTableBody = (props: CardPacksTableBodyPropsType): ITableMo
                     <div key={i} style={{width: '100%', display: 'flex'}}>
                         <button onClick={(e) => {
                             dispatch(setSecondDescriptionSort(sliceNameFunction((e.target as HTMLElement).innerText)));
-                            dispatch(setFirstNumberSort(!!props.firstNumber ? 0 : 1))
+                            dispatch(setFirstNumberSort(!!props.firstNumber ? 0 : 1));
                         }}>
                             updated↕
                         </button>
@@ -66,7 +70,7 @@ export const CardPacksTableBody = (props: CardPacksTableBodyPropsType): ITableMo
                     <div key={i} style={{width: '100%', display: 'flex'}}>
                         <button onClick={(e) => {
                             dispatch(setSecondDescriptionSort(sliceNameFunction((e.target as HTMLElement).innerText)));
-                            dispatch(setFirstNumberSort(!!props.firstNumber ? 0 : 1))
+                            dispatch(setFirstNumberSort(!!props.firstNumber ? 0 : 1));
                         }}>
                             userName↕
                         </button>

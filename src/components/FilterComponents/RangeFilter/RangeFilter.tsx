@@ -48,23 +48,4 @@ export const RangeFilter = () => {
     );
 };
 
-// нативный кусок рэнжа
-// const [values, setValues] = useState<number[]>([props.min, props.max]);
-//
-// const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
-//     if (+e.currentTarget.value < values[1]) {
-//         setValues([+e.currentTarget.value, values[1]]);
-//     }
-// }
-// const onChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
-//     if (+e.currentTarget.value > values[0]) {
-//         setValues([values[0], +e.currentTarget.value]);
-//     }
-// }
-//
-// const onMouseUpHandler = () => {
-//     dispatch(props.setMinMaxAction({minCardsCount: values[0], maxCardsCount: values[1]}))
-//     // dispatch(setMinMaxCardsCount({minCardsCount: 20, maxCardsCount: 60}))
-// }
-
 

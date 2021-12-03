@@ -38,17 +38,17 @@ export const CardPacksTable: React.FC<ITableProps> = (
     }
 ) => {
     const dispatch = useDispatch();
-    const [newNamePack, setNewNamePack] = useState<string>('');
+    const [newPackName, setNewPackName] = useState<string>('');
     const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
     const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
     const isMyCardsPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPackFilter.isMyCardsPacks);
 
-    const addCardPack = useCallback((name: string) => {
-        dispatch(createCardsPackTC(name));
+    const addCardPack = useCallback((newPackName: string) => {
+        dispatch(createCardsPackTC(newPackName, user_id, isMyCardsPacks));
     }, [dispatch]);
 
     const deleteCardPack = useCallback((id: string) => {
-        dispatch(deleteCardPacksTC(id));
+        dispatch(deleteCardPacksTC(id, user_id, isMyCardsPacks));
     }, [dispatch]);
 
     return (
@@ -65,8 +65,8 @@ export const CardPacksTable: React.FC<ITableProps> = (
         >
             table
             <div>
-                <input type='text' value={newNamePack} onChange={e => setNewNamePack(e.currentTarget.value)}/>
-                <button type='button' onClick={() => addCardPack(newNamePack)}>
+                <input type='text' value={newPackName} onChange={e => setNewPackName(e.currentTarget.value)}/>
+                <button type='button' onClick={() => addCardPack(newPackName)}>
                     add
                 </button>
             </div>
@@ -96,7 +96,7 @@ export const CardPacksTable: React.FC<ITableProps> = (
                 }}
             >
                 {model.map((m: ITableModel, index: number) => m.title(index))}
-
+            Hey
             </div>
 
             <div
@@ -116,8 +116,8 @@ export const CardPacksTable: React.FC<ITableProps> = (
                             alignItems: 'center',
                             justifyContent: 'center',
                             ...rowStyle,
-                        }}
-                    >
+                        }}>
+
                         {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
                         {user_id === dataItem.user_id
                             ? <>
@@ -130,7 +130,7 @@ export const CardPacksTable: React.FC<ITableProps> = (
                             </>
                             : null}
 
-                        <button type='button' /*onClick={() => watchCardsPacks(dataItem._id)}*/>
+                        <button type='button'>
                             <NavLink to={`/cards/${dataItem._id}`}>Сards</NavLink>
                         </button>
                     </div>

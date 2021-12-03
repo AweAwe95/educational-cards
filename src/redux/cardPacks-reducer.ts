@@ -21,18 +21,9 @@ const initialState = {
     pageCount: 15,
 };
 
-export const cardPacksReducer = (state: CardPacksResType = initialState, action: CardPacksActionTypes): CardPacksResType => {
+export const cardPacksReducer = (state: PacksReducerType = initialState, action: CardPacksActionTypes): PacksReducerType => {
     switch (action.type) {
         case 'GET-CARD-PACKS': {
-            return {...state, ...action.data};
-        }
-        case 'CURRENT-CARD-PACKS': {
-            return {...state, ...action.data};
-        }
-        case 'DELETE-CARD-PACKS': {
-            return {...state, cardPacks: state.cardPacks.filter(cardPack => cardPack._id !== action.id)};
-        }
-        case 'UPDATE-CARD-PACKS': {
             return {...state, ...action.data};
         }
         default:
@@ -42,21 +33,15 @@ export const cardPacksReducer = (state: CardPacksResType = initialState, action:
 
 export const getCardPacksAC = (data: CardPacksResType) =>
     ({type: 'GET-CARD-PACKS', data} as const);
-export const createCardPacksAC = (data: CardPacksResType) =>
-    ({type: 'CURRENT-CARD-PACKS', data} as const);
-export const deleteCardPacksAC = (id: string) =>
-    ({type: 'DELETE-CARD-PACKS', id} as const);
-export const updateCardPacksAC = (data: CardPacksResType) =>
-    ({type: 'UPDATE-CARD-PACKS', data} as const);
 
 
 export const getCardPacksTC = (user_id?: string) => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
-        const {packName, min, max, page, pageCount} = getState().cardsPackFilter
-        const {firstNumber, secondDescription} = getState().cardsPackFilter.sortPacks
-        const sortPacks = firstNumber + secondDescription
-        dispatch(setLoaderAC(true))
-        const dataForPacksGetRequest = {packName, min, max, page, pageCount, sortPacks, user_id}
+        const {packName, min, max, page, pageCount} = getState().cardsPackFilter;
+        const {firstNumber, secondDescription} = getState().cardsPackFilter.sortPacks;
+        const sortPacks = firstNumber + secondDescription;
+        dispatch(setLoaderAC(true));
+        const dataForPacksGetRequest = {packName, min, max, page, pageCount, sortPacks, user_id};
         api.getCardPacks(dataForPacksGetRequest)
             .then(res => {
                 dispatch(getCardPacksAC(res.data));
@@ -66,61 +51,69 @@ export const getCardPacksTC = (user_id?: string) => {
                 console.log('Error');
             })
             .finally(() => {
-                dispatch(setLoaderAC(false))
-            })
+                dispatch(setLoaderAC(false));
+            });
     };
 };
-export const createCardsPackTC = (name: string) => {
+export const createCardsPackTC = (newPackName: string, user_id?: string | undefined, isMyCardsPacks?: boolean) => {
     return (dispatch: any) => {
-        dispatch(setLoaderAC(true))
-        api.createCardPacks(name)
+        dispatch(setLoaderAC(true));
+        api.createCardPacks(newPackName)
             .then((res) => {
-                dispatch(getCardPacksTC())
+                if (isMyCardsPacks) {
+                    dispatch(getCardPacksTC(user_id));
+                } else {
+                    dispatch(getCardPacksTC());
+                }
             })
             .catch(e => {
-                const error = e.response.data.error
+                const error = e.response.data.error;
                 console.log('Error: ' + error);
             })
             .finally(() => {
-                dispatch(setLoaderAC(false))
-            })
-    }
-}
-export const deleteCardPacksTC = (id: string) => {
+                dispatch(setLoaderAC(false));
+            });
+    };
+};
+export const deleteCardPacksTC = (id: string, user_id: string | undefined, isMyCardsPacks?: boolean) => {
     return (dispatch: any) => {
-        dispatch(setLoaderAC(true))
+        dispatch(setLoaderAC(true));
         api.deleteCardPacks(id)
             .then((res) => {
-                dispatch(getCardPacksTC())
+                if (isMyCardsPacks) {
+                    dispatch(getCardPacksTC(user_id));
+                } else {
+                    dispatch(getCardPacksTC());
+                }
             })
             .catch(e => {
-                const error = e.response.data.error
+                const error = e.response.data.error;
                 console.log('Error: ' + error);
             })
             .finally(() => {
-                dispatch(setLoaderAC(false))
-            })
-    }
-}
-export const updateCardPacksTC = (id: string, title: string) => {
+                dispatch(setLoaderAC(false));
+            });
+    };
+};
+export const updateCardPacksTC = (_id: string, title: string) => {
     return (dispatch: any) => {
-        dispatch(setLoaderAC(true))
-        api.updateCardPacks(id,title)
+        dispatch(setLoaderAC(true));
+        console.log(_id);
+        api.updateCardPacks(_id, title)
             .then((res) => {
-                dispatch(getCardPacksTC())
+                dispatch(getCardPacksTC());
             })
             .catch(e => {
-                const error = e.response.data.error
+                const error = e.response.data.error;
                 console.log('Error: ' + error);
             })
             .finally(() => {
-                dispatch(setLoaderAC(false))
-            })
-    }
-}
+                dispatch(setLoaderAC(false));
+            });
+    };
+};
 
 export type CardPacksActionTypes =
-    ReturnType<typeof getCardPacksAC> |
-    ReturnType<typeof createCardPacksAC> |
-    ReturnType<typeof deleteCardPacksAC> |
-    ReturnType<typeof updateCardPacksAC>;
+    ReturnType<typeof getCardPacksAC>
+
+export type PacksReducerType = typeof initialState

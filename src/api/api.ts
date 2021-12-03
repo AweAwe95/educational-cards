@@ -40,8 +40,8 @@ export const api = {
     deleteCardPacks(id: string) {
         return instance.delete<CardPacksResType>(`cards/pack/?id=${id}`);
     },
-    updateCardPacks(id: string, title: string) {
-        return instance.put<CardPacksResType>(`cards/pack`, {cardsPack: {id, title}});
+    updateCardPacks(_id: string, name: string) {
+        return instance.put<CardPacksResType>(`cards/pack`, {cardsPack: {_id, name}});
     },
     getCards(cardsPack_id: string | undefined) {
         return instance.get<CardsResType>(`cards/card/?cardsPack_id=${cardsPack_id}`);
