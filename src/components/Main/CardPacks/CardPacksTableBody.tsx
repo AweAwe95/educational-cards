@@ -2,7 +2,8 @@ import {ITableModel} from './CardPacksTable';
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {setFirstNumberSort, setSecondDescriptionSort} from '../../../redux/Packs/cards-packs-filter-reducer';
-import {EditableSpan} from '../../Common/EditableSpan';
+import { EditableSpan } from '../../common/EditableSpan';
+
 
 export type CardPacksTableBodyPropsType = {
     firstNumber: number

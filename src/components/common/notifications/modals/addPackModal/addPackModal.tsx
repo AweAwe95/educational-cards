@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import s from '../Modals.module.css'
 import {useDispatch} from "react-redux";
 import SuperButton from "../../../button/SuperButton";
-import {addCardPacksTC} from "../../../../../redux/cardPacks-reducer";
 
 
 type ModalPropsType = {
@@ -25,7 +24,7 @@ export const AddPackModal = ({message, isOpen, onClose, setOpen}: ModalPropsType
     }
 
     const onClickNewName = (newName: string) => {
-        dispatch(addCardPacksTC(newName))
+        // dispatch(addCardPacksTC(newName))
         setNewName('')
         setOpen(false)
     }
