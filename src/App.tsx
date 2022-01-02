@@ -10,18 +10,17 @@ import {NewPassword} from "./components/Main/NewPassword/NewPassword";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {CardPacks} from "./components/Main/CardPacks/CardPacks";
 import {Cards} from "./components/Main/Cards/Cards";
-import {LoginDataType} from "./api/api";
 import {isAuthorizedTC} from "./redux/authorization-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./redux/store";
 import {ModalCheckEmail} from "./components/Main/RecoveryPassword/ModalCheckEmail";
 
 function App() {
-    const authData = useSelector<AppRootStateType, LoginDataType>(state => state.authorization.data);
+    const authData = useSelector<AppRootStateType, any>(state => state.authorization.data);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.authorization.isLoggedIn);
     const dispatch = useDispatch()
 
-    const isAuthDataEmpty = (authData: LoginDataType) => {
+    const isAuthDataEmpty = (authData: any) => {
         for (let key in authData) {
             // если тело цикла начнет выполняться - значит в объекте есть свойства
             return false;

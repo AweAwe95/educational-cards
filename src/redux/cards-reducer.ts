@@ -1,35 +1,39 @@
 import {Dispatch} from 'redux';
-import {api, CardsResType} from '../api/api';
+import {api, GetCardsResponse} from '../api/api';
 import {setLoaderAC} from "./app-reducer";
 
 const initialState = {
     cards: [{
+        _id: "",
+        cardsPack_id: "",
+        user_id: "",
         answer: "",
         question: "",
-        cardsPack_id: "",
         grade: 0,
+        shots: 0,
         comments: "",
+        type: "",
+        rating: 0,
+        more_id: "",
         created: "",
         updated: "",
-        more_id: "",
-        rating: 0,
-        shots: 0,
-        type: "",
-        user_id: "",
         __v: 0,
-        _id: ""
-    }],
-    cardsTotalCount: 0,
-    maxGrade: 0,
-    minGrade: 0,
-    page: 1,
+        answerImg: "",
+        answerVideo: "",
+        questionImg: "",
+        questionVideo: "",
+    },],
+    packUserId: "",
+    page: 0,
     pageCount: 0,
-    packUserId: '',
+    cardsTotalCount: 0,
+    minGrade: 0,
+    maxGrade: 0,
     token: "",
-    tokenDeathTime: 15
+    tokenDeathTime: 0,
 };
 
-export const cardsReducer = (state: CardsResType = initialState, action: CardsActionTypes): CardsResType => {
+export const cardsReducer = (state: GetCardsResponse = initialState, action: CardsActionTypes): GetCardsResponse => {
     switch (action.type) {
         case 'SET-CARDS': {
             return {...state, ...action.data};
@@ -39,7 +43,7 @@ export const cardsReducer = (state: CardsResType = initialState, action: CardsAc
     }
 };
 
-export const setCardsAC = (data: CardsResType) =>
+export const setCardsAC = (data: GetCardsResponse) =>
     ({type: 'SET-CARDS', data} as const);
 
 
@@ -100,10 +104,10 @@ export const deleteCardTC = (cardsPack_id: string | undefined, cardId: string) =
             })
     };
 };
-export const updateCardTC = (packsId: string, cardId: string, question?: string, comments?: string) => {
+export const updateCardTC = (packsId: string, _id: string, question?: string, comments?: string) => {
     return (dispatch: any) => {
         dispatch(setLoaderAC(true))
-        api.updateCard(cardId,question,comments)
+        api.updateCard(_id,question,comments)
             .then(() => {
                 dispatch(getCardsTC(packsId));
             })

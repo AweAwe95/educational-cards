@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {CardType} from '../../../api/api';
+import {Card} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
 import {CardsTable} from './CardsTable';
 import {CardsTableBody} from './CardsTableBody';
@@ -11,7 +11,7 @@ import {useParams} from 'react-router-dom';
 
 export const Cards = () => {
     const dispatch = useDispatch()
-    const data = useSelector<AppRootStateType, CardType[]>(state => state.cards.cards);
+    const data = useSelector<AppRootStateType, Card[]>(state => state.cards.cards);
     // const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
 

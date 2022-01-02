@@ -1,11 +1,10 @@
 import {useSelector} from 'react-redux';
-import {LoginDataType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
 import './Profile.css';
 import {Loader} from '../../Loader/Loader';
 
 export function Profile() {
-    const authData = useSelector<AppRootStateType, LoginDataType>(state => state.authorization.data);
+    const authData = useSelector<AppRootStateType, any>(state => state.authorization.data);
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
     // const [open, setOpen] = useState(false)
 

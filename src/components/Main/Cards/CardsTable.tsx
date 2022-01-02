@@ -1,8 +1,8 @@
 import React, {CSSProperties, ReactNode, useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../redux/store';
-import {CardsResType} from '../../../api/api';
 import {createCardTC, deleteCardTC} from '../../../redux/cards-reducer';
+import {GetCardsResponse} from '../../../api/api';
 
 export interface ITableModel {
     title: (index: number) => ReactNode;
@@ -31,7 +31,7 @@ export const CardsTable: React.FC<ITableProps> = (
 ) => {
     const dispatch = useDispatch();
     const [newCardName, setNewCardName] = useState<string>('');
-    const cardsObj = useSelector<AppRootStateType, CardsResType>(state => state.cards);
+    const cardsObj = useSelector<AppRootStateType, GetCardsResponse>(state => state.cards);
     const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
     const data = cardsObj.cards;
 

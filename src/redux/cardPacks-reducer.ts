@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {api, CardPacksResType} from '../api/api';
+import {api, GetCardPacksResponse} from '../api/api';
 import {AppRootStateType} from './store';
 import {setTotalCountPage} from './Packs/cards-packs-filter-reducer';
 import {setLoaderAC} from './app-reducer';
@@ -13,6 +13,14 @@ const initialState = {
         created: '',
         updated: '',
         user_name: '',
+        private: false,
+        path: '',
+        grade: 0,
+        shots: 0,
+        type: "",
+        rating: 0,
+        more_id: '',
+        __v: 0
     }],
     cardPacksTotalCount: 0,
     maxCardsCount: 0,
@@ -31,7 +39,7 @@ export const cardPacksReducer = (state: PacksReducerType = initialState, action:
     }
 };
 
-export const getCardPacksAC = (data: CardPacksResType) =>
+export const getCardPacksAC = (data: GetCardPacksResponse) =>
     ({type: 'GET-CARD-PACKS', data} as const);
 
 
@@ -58,7 +66,7 @@ export const getCardPacksTC = (user_id?: string) => {
 export const createCardsPackTC = (newPackName: string, user_id?: string | undefined, isMyCardsPacks?: boolean) => {
     return (dispatch: any) => {
         dispatch(setLoaderAC(true));
-        api.createCardPacks(newPackName)
+        api.createCardPack(newPackName)
             .then((res) => {
                 if (isMyCardsPacks) {
                     dispatch(getCardPacksTC(user_id));
@@ -78,7 +86,7 @@ export const createCardsPackTC = (newPackName: string, user_id?: string | undefi
 export const deleteCardPacksTC = (id: string, user_id: string | undefined, isMyCardsPacks?: boolean) => {
     return (dispatch: any) => {
         dispatch(setLoaderAC(true));
-        api.deleteCardPacks(id)
+        api.deleteCardPack(id)
             .then((res) => {
                 if (isMyCardsPacks) {
                     dispatch(getCardPacksTC(user_id));
@@ -99,7 +107,7 @@ export const updateCardPacksTC = (_id: string, title: string) => {
     return (dispatch: any) => {
         dispatch(setLoaderAC(true));
         console.log(_id);
-        api.updateCardPacks(_id, title)
+        api.updateCardPack(_id, title)
             .then((res) => {
                 dispatch(getCardPacksTC());
             })

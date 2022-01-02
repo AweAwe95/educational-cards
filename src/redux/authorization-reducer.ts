@@ -1,10 +1,10 @@
-import {AuthFormikType} from '../components/Main/Authorization/AuthorizationForm/AuthorizationForm';
+import {AuthFormikData} from '../components/Main/Authorization/AuthorizationForm/AuthorizationForm';
 import {Dispatch} from 'redux';
-import {LoginDataType, api} from '../api/api';
+import {api} from '../api/api';
 import {setLoaderAC} from "./app-reducer";
 
 const initialState = {
-    data: {} as LoginDataType,
+    data: {} as any,
     isLoggedIn: false,
     authError: false
 };
@@ -33,11 +33,11 @@ export const authorizationReducer = (state: AuthStateType = initialState, action
 };
 
 
-export const loginAC = (data: LoginDataType) => ({type: 'AUTH/LOGIN', data} as const)
+export const loginAC = (data: any) => ({type: 'AUTH/LOGIN', data} as const)
 export const isLoggedInAC = (isLoggedIn: boolean) => ({type: 'AUTH/IS-LOGGED-IN', isLoggedIn} as const)
 export const setAuthErrorAC = (authError: boolean) => ({type: 'AUTH/SET-AUTH-ERROR', authError} as const)
 
-export const loginTC = (data: AuthFormikType) => {
+export const loginTC = (data: AuthFormikData) => {
     return (dispatch: Dispatch) => {
         dispatch(setLoaderAC(true))
         api.login(data)

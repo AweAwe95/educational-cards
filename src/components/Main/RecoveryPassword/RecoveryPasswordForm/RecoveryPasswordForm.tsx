@@ -2,7 +2,7 @@ import React from 'react';
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from 'react-redux';
 import {recPassTC, setRecPassErrorAC} from '../../../../redux/recoveryPassword-reducer';
-import {AuthFormikType} from '../../Authorization/AuthorizationForm/AuthorizationForm';
+import {AuthFormikData} from '../../Authorization/AuthorizationForm/AuthorizationForm';
 import {AppRootStateType} from '../../../../redux/store';
 import './RecoveryPasswordForm.css';
 import {Loader} from '../../../Loader/Loader';
@@ -24,7 +24,7 @@ export const RecoveryPasswordForm = () => {
             token: '',
         },
         validate: (values) => {
-            const errors: AuthFormikType = {};
+            const errors: AuthFormikData = {};
             if (!values.email) {
                 errors.email = 'Required';
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {

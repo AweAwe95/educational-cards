@@ -2,7 +2,7 @@ import React, {CSSProperties, ReactNode, useCallback, useState} from 'react';
 import {createCardsPackTC, deleteCardPacksTC} from '../../../redux/cardPacks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../redux/store';
-import {CardPackType} from '../../../api/api';
+import {CardsPack} from '../../../api/api';
 import {NavLink} from 'react-router-dom';
 import {setIsMyCardsPacks} from '../../../redux/Packs/cards-packs-filter-reducer';
 
@@ -39,7 +39,7 @@ export const CardPacksTable: React.FC<ITableProps> = (
 ) => {
     const dispatch = useDispatch();
     const [newPackName, setNewPackName] = useState<string>('');
-    const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
+    const data = useSelector<AppRootStateType, CardsPack[]>(state => state.cardPacks.cardPacks);
     const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
     const isMyCardsPacks = useSelector<AppRootStateType, boolean>(state => state.cardsPackFilter.isMyCardsPacks);
 

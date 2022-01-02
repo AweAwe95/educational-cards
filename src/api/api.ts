@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {AuthFormikType} from '../components/Main/Authorization/AuthorizationForm/AuthorizationForm';
+import {AuthFormikData} from '../components/Main/Authorization/AuthorizationForm/AuthorizationForm';
 
 
 const instance = axios.create({
@@ -9,55 +9,189 @@ const instance = axios.create({
 
 export const api = {
     regUser(email: string, password: string) {
-        return instance.post('auth/register', {email, password});
+        return instance.post<RegUserResponse>('auth/register', {email, password});
     },
     emailUser(email: string, from: string, message: string) {
-        return instance.post('auth/forgot', {email, from, message});
+        return instance.post<EmailUserResponse>('auth/forgot', {email, from, message});
     },
     resetUser(password: string, resetPasswordToken: string | undefined) {
-        return instance.post('auth/set-new-password', {password, resetPasswordToken});
+        return instance.post<ResetUserResponse>('auth/set-new-password', {password, resetPasswordToken});
     },
-    login(data: AuthFormikType) {
-        return instance.post<LoginDataType>('auth/login', {...data})
+    login(data: AuthFormikData) {
+        return instance.post<LoginResponse>('auth/login', {...data})
             .then(res => {
                 return res.data;
             });
     },
     isAuthorized() {
-        return instance.post('auth/me', {});
+        return instance.post<IsAuthorizedResponse>('auth/me', {});
     },
     logout() {
-        return instance.delete('auth/me', {});
+        return instance.delete<LogoutResponse>('auth/me', {});
     },
-    getCardPacks(dataForPacksGetRequest: dataForPacksGetRequest) {
-        return instance.get<CardPacksResType>('cards/pack', {
-            params: dataForPacksGetRequest
+    getCardPacks(getCardPacksRequestData: GetCardPacksRequestData) {
+        return instance.get<GetCardPacksResponse>('cards/pack', {
+            params: getCardPacksRequestData
         });
     },
-    createCardPacks(name: string) {
-        return instance.post<CardPacksResType>('cards/pack', {cardsPack: {name}});
+    createCardPack(name: string) {
+        return instance.post<ChangeCardPackResponse>('cards/pack', {cardsPack: {name}});
     },
-    deleteCardPacks(id: string) {
-        return instance.delete<CardPacksResType>(`cards/pack/?id=${id}`);
+    deleteCardPack(id: string) {
+        return instance.delete<ChangeCardPackResponse>(`cards/pack/?id=${id}`);
     },
-    updateCardPacks(_id: string, name: string) {
-        return instance.put<CardPacksResType>(`cards/pack`, {cardsPack: {_id, name}});
+    updateCardPack(_id: string, name: string) {
+        return instance.put<ChangeCardPackResponse>(`cards/pack`, {cardsPack: {_id, name}});
     },
     getCards(cardsPack_id: string | undefined) {
-        return instance.get<CardsResType>(`cards/card/?cardsPack_id=${cardsPack_id}`);
+        return instance.get<GetCardsResponse>(`cards/card/?cardsPack_id=${cardsPack_id}`);
     },
     createCard(cardsPack_id: string | undefined, question: string) {
-        return instance.post(`cards/card`, {card: {cardsPack_id, question}});
+        return instance.post<CreateCardResponse>(`cards/card`, {card: {cardsPack_id, question}});
     },
     deleteCard(cardId: string) {
-        return instance.delete(`cards/card/?id=${cardId}`);
+        return instance.delete<DeleteCardResponse>(`cards/card/?id=${cardId}`);
     },
-    updateCard(cardId: string, question?: string, comments?: string) {
-        return instance.put<CardPacksResType>(`cards/card`, {card: {cardId, question, comments}});
+    updateCard(_id: string, question?: string, comments?: string) {
+        return instance.put<UpdateCardResponse>(`cards/card`, {card: {_id, question, comments}});
     }
 };
 
-export type dataForPacksGetRequest = {
+
+type RegUserResponse = {
+    addedUser: {
+        _id: string
+        email: string
+        rememberMe: boolean
+        isAdmin: boolean
+        name: string
+        verified: boolean
+        publicCardPacksCount: number
+        created: string
+        updated: string
+        __v: number
+    }
+}
+type EmailUserResponse = {
+    info: string
+    success: boolean
+    answer: boolean
+    html: false
+}
+type ResetUserResponse = {
+    info: string
+}
+type LoginResponse = {
+    _id: string
+    email: string
+    rememberMe: boolean
+    isAdmin: boolean
+    name: string
+    verified: boolean
+    publicCardPacksCount: number
+    created: string
+    updated: string
+    __v: number
+    token: string
+    tokenDeathTime: number
+
+}
+type IsAuthorizedResponse = {
+    _id: string
+    email: string
+    rememberMe: boolean
+    isAdmin: boolean
+    name: string
+    verified: boolean
+    publicCardPacksCount: number
+    created: string
+    updated: string
+    __v: number
+    token: string
+    tokenDeathTime: number
+}
+type LogoutResponse = {
+    info: string
+}
+export type GetCardPacksResponse = {
+    cardPacks: CardsPack[]
+    page: number
+    pageCount: number
+    cardPacksTotalCount: number
+    minCardsCount: number
+    maxCardsCount: number
+    token: string
+    tokenDeathTime: number
+}
+type ChangeCardPackResponse = {
+    newCardsPack: CardsPack
+    token: string
+    tokenDeathTime: number
+}
+export type GetCardsResponse = {
+    cards: Card[]
+    packUserId: string
+    page: number
+    pageCount: number
+    cardsTotalCount: number
+    minGrade: number
+    maxGrade: number
+    token: string
+    tokenDeathTime: number
+}
+type CreateCardResponse = {
+    newCard: Card,
+    token: string
+    tokenDeathTime: number
+}
+type DeleteCardResponse = {
+    deletedCard: Card
+    token: string
+    tokenDeathTime: number
+}
+type UpdateCardResponse = {
+    updatedCard: Card
+    token: string
+    tokenDeathTime: number
+}
+export type CardsPack = {
+    _id: string
+    user_id: string
+    user_name: string
+    private: boolean
+    name: string
+    path: string
+    grade: number
+    shots: number
+    cardsCount: number
+    type: string
+    rating: number
+    created: string
+    updated: string
+    more_id: string
+    __v: number
+}
+export type Card = {
+    _id: string
+    cardsPack_id: string
+    user_id: string
+    answer: string
+    question: string
+    grade: number
+    shots: number
+    comments: string
+    type: string
+    rating: number
+    more_id: string
+    created: string
+    updated: string
+    __v: number
+    answerImg: string
+    answerVideo: string
+    questionImg: string
+    questionVideo: string
+}
+export type GetCardPacksRequestData = {
     packName: string
     min: number
     max: number
@@ -65,67 +199,4 @@ export type dataForPacksGetRequest = {
     pageCount: number
     sortPacks: string
     user_id?: string
-}
-
-export type LoginDataType = {
-    created?: string
-    email?: string
-    isAdmin?: boolean
-    name?: string
-    publicCardPacksCount?: number
-    rememberMe?: boolean
-    token?: string
-    tokenDeathTime?: number
-    updated?: string
-    verified?: boolean
-    __v?: number
-    _id?: string
-}
-
-export type CardPackType = {
-    _id: string
-    user_id: string
-    name: string
-    cardsCount: number
-    created: string
-    updated: string
-    user_name: string
-}
-
-export type CardPacksResType = {
-    cardPacks: CardPackType[]
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
-}
-
-export type CardType = {
-    answer: string
-    question: string
-    cardsPack_id: string
-    grade: number
-    comments: string
-    created: string
-    updated: string
-    more_id: string
-    rating: number
-    shots: number
-    type: string
-    user_id: string
-    __v: number
-    _id: string
-}
-
-export type CardsResType = {
-    cards: CardType[]
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    page: number
-    pageCount: number
-    packUserId: string
-    token: string
-    tokenDeathTime: number
 }

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {regUserTC, setRegErrorAC} from "../../../../redux/registration-reducer";
 import "./RegistrationForm.css"
 import {AppRootStateType} from "../../../../redux/store";
-import {AuthFormikType} from "../../Authorization/AuthorizationForm/AuthorizationForm";
+import {AuthFormikData} from "../../Authorization/AuthorizationForm/AuthorizationForm";
 import {Loader} from "../../../Loader/Loader";
 
 export const RegistrationForm = () => {
@@ -18,7 +18,7 @@ export const RegistrationForm = () => {
                 password: '',
             },
             validate: (values) => {
-                const errors: AuthFormikType = {};
+                const errors: AuthFormikData = {};
                 if (!values.email) {
                     errors.email = 'Required';
                 } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {

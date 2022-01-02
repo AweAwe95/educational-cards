@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {CardPackType} from '../../../api/api';
 import {AppRootStateType} from '../../../redux/store';
 import {CardPacksTableBody} from './CardPacksTableBody';
 import {Paginator} from '../../FilterComponents/Pagination/Pagination';
@@ -10,11 +9,12 @@ import {PacksFilterReducerStateType} from '../../../redux/Packs/cards-packs-filt
 import {getCardPacksTC} from '../../../redux/cardPacks-reducer';
 import {Loader} from '../../Loader/Loader';
 import {CardPacksTable} from './CardPacksTable';
+import {CardsPack} from "../../../api/api";
 
 
 export const CardPacks = () => {
     const dispatch = useDispatch();
-    const data = useSelector<AppRootStateType, CardPackType[]>(state => state.cardPacks.cardPacks);
+    const data = useSelector<AppRootStateType, CardsPack[]>(state => state.cardPacks.cardPacks);
     const isLoading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
     const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
 
