@@ -43,7 +43,7 @@ function App() {
                     <Route path={'/'} element={isLoggedIn ? <Profile/> : <Navigate to={'/auth'}/>}></Route>
                     <Route path={'/password-recovery'} element={<RecoveryPassword/>}></Route>
                     <Route path={'/new-password/:serverToken'} element={<NewPassword/>}></Route>
-                    <Route path={'/cards/:cardsPack_Id'} element={isLoggedIn ?<Cards/> : <Navigate to={'/auth'}/>}></Route>
+                    <Route path={'/cards/:cardsPack_Id'} element={isLoggedIn ? <Cards/> : <Navigate to={'/auth'}/>}></Route>
                     <Route path={'/packs'} element={isLoggedIn ? <CardPacks/> : <Navigate to={'/auth'}/>}></Route>
                     <Route path={'/check_email/:email'} element={<ModalCheckEmail/>}></Route>
                 </Routes>

@@ -1,4 +1,3 @@
-
 const initialState = {
     isLoading: false,
     status: "idle" as RequestStatusType
@@ -6,9 +5,7 @@ const initialState = {
 
 export const appReducer = (state: AppStateType = initialState, action: ActionsType): AppStateType => {
     switch (action.type) {
-        case 'APP/SET-LOADING': {
-            return {...state, isLoading: action.isLoading};
-        }
+        case 'APP/SET-LOADING':
         case 'APP/SET-STATUS': {
             return {...state, ...action.payload};
         }
@@ -19,7 +16,7 @@ export const appReducer = (state: AppStateType = initialState, action: ActionsTy
 };
 
 
-export const setLoaderAC = (isLoading: boolean) => ({type: 'APP/SET-LOADING', isLoading} as const)
+export const setLoaderAC = (isLoading: boolean) => ({type: 'APP/SET-LOADING', payload: {isLoading}} as const)
 export const setStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', payload: {status}} as const)
 
 type AppStateType = typeof initialState
