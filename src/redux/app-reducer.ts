@@ -7,10 +7,10 @@ export const appReducer = (state: AppStateType = initialState, action: ActionsTy
     switch (action.type) {
         case 'APP/SET-LOADING':
         case 'APP/SET-STATUS': {
-            return {...state, ...action.payload};
+            return {...state, ...action.payload}
         }
         default: {
-            return state;
+            return state
         }
     }
 };

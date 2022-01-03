@@ -81,7 +81,7 @@ type EmailUserResponse = {
 type ResetUserResponse = {
     info: string
 }
-type LoginResponse = {
+export type LoginResponse = {
     _id: string
     email: string
     rememberMe: boolean
@@ -94,7 +94,6 @@ type LoginResponse = {
     __v: number
     token: string
     tokenDeathTime: number
-
 }
 type IsAuthorizedResponse = {
     _id: string

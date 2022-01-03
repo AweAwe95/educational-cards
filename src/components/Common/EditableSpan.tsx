@@ -12,7 +12,7 @@ export type EditableSpanPropsType = {
 
 export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
 
-    const user_id = useSelector<AppRootStateType, string | undefined>(state => state.authorization.data._id);
+    const user_id = useSelector<AppRootStateType, string>(state => state.authorization.data._id);
     const dispatch = useDispatch()
 
     let [editMode, setEditMode] = useState<boolean>(false);

@@ -1,6 +1,6 @@
 import {AuthFormikData} from '../components/Main/Authorization/AuthorizationForm/AuthorizationForm';
 import {Dispatch} from 'redux';
-import {api} from '../api/api';
+import {api, LoginResponse} from '../api/api';
 import {setLoaderAC} from "./app-reducer";
 
 const initialState = {
@@ -11,20 +11,10 @@ const initialState = {
 
 export const authorizationReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
     switch (action.type) {
-        case 'AUTH/LOGIN': {
-            return {
-                ...state,
-                data: action.data
-            };
-        }
-        case 'AUTH/IS-LOGGED-IN': {
-            return {
-                ...state,
-                isLoggedIn: action.isLoggedIn
-            };
-        }
+        case 'AUTH/LOGIN':
+        case 'AUTH/IS-LOGGED-IN':
         case "AUTH/SET-AUTH-ERROR": {
-            return {...state, authError: action.authError}
+            return {...state, ...action.payload}
         }
         default: {
             return state;
@@ -33,9 +23,9 @@ export const authorizationReducer = (state: AuthStateType = initialState, action
 };
 
 
-export const loginAC = (data: any) => ({type: 'AUTH/LOGIN', data} as const)
-export const isLoggedInAC = (isLoggedIn: boolean) => ({type: 'AUTH/IS-LOGGED-IN', isLoggedIn} as const)
-export const setAuthErrorAC = (authError: boolean) => ({type: 'AUTH/SET-AUTH-ERROR', authError} as const)
+export const loginAC = (data: LoginResponse | {}) => ({type: 'AUTH/LOGIN', payload: {data}} as const)
+export const isLoggedInAC = (isLoggedIn: boolean) => ({type: 'AUTH/IS-LOGGED-IN', payload: {isLoggedIn}} as const)
+export const setAuthErrorAC = (authError: boolean) => ({type: 'AUTH/SET-AUTH-ERROR', payload: {authError}} as const)
 
 export const loginTC = (data: AuthFormikData) => {
     return (dispatch: Dispatch) => {
