@@ -39,10 +39,7 @@ export const cardPacksReducer = (state: PacksReducerType = initialState, action:
     }
 };
 
-export const getCardPacksAC = (data: GetCardPacksResponse) =>
-    ({type: 'GET-CARD-PACKS', data} as const);
-
-
+export const getCardPacksAC = (data: GetCardPacksResponse) => ({type: 'GET-CARD-PACKS', data} as const);
 export const getCardPacksTC = (user_id?: string) => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         const {packName, min, max, page, pageCount} = getState().cardsPackFilter;

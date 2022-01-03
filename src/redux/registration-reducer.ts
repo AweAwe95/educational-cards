@@ -9,11 +9,9 @@ const initialState = {
 
 export const registrationReducer = (state: RegStateType = initialState, action: ActionsType): RegStateType => {
     switch (action.type) {
-        case "SIGNUP/REG-USER": {
-            return {...state, isReg: action.isReg}
-        }
+        case "SIGNUP/REG-USER":
         case "SIGNUP/SET-REG-ERROR": {
-            return {...state, regError: action.regError}
+            return {...state, ...action.payload}
         }
         default: {
             return state
@@ -22,8 +20,8 @@ export const registrationReducer = (state: RegStateType = initialState, action: 
 }
 
 
-export const regUserAC = (isReg: boolean) => ({type: "SIGNUP/REG-USER", isReg: isReg} as const)
-export const setRegErrorAC = (regError: boolean) => ({type: "SIGNUP/SET-REG-ERROR", regError} as const)
+export const regUserAC = (isReg: boolean) => ({type: "SIGNUP/REG-USER", payload: {isReg}} as const)
+export const setRegErrorAC = (regError: boolean) => ({type: "SIGNUP/SET-REG-ERROR", payload: {regError}} as const)
 
 
 export const regUserTC = (email: string, password: string) => {

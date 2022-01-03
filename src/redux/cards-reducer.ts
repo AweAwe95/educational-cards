@@ -56,10 +56,6 @@ export const getCardsTC = (cardsPack_id: string | undefined) => {
             })
             .catch(e => {
                 console.log('Error: ' + e.response.data.error || e.message);
-                // const error = e.response.data.error
-                //     ? e.response.data.error
-                //     : (e.message + 'more details in console');
-                // console.log('Error: ' + error);
             })
             .finally(() => {
             dispatch(setLoaderAC(false))
@@ -75,10 +71,6 @@ export const createCardTC = (cardsPack_id: string | undefined, newCardName: stri
             })
             .catch(e => {
                 console.log('Error: ' + e.response.data.error || e.message);
-                // const error = e.response.data.error
-                //     ? e.response.data.error
-                //     : (e.message + 'more details in console');
-                // console.log('Error: ' + error);
             })
             .finally(() => {
                 dispatch(setLoaderAC(false))
@@ -93,7 +85,6 @@ export const deleteCardTC = (cardsPack_id: string | undefined, cardId: string) =
                 dispatch(getCardsTC(cardsPack_id));
             })
             .catch(e => {
-                // console.log('Error: ' + e.response.data.error || e.message);
                 const error = e.response.data.error
                     ? e.response.data.error
                     : (e.message + 'more details in console');
@@ -112,7 +103,6 @@ export const updateCardTC = (packsId: string, _id: string, question?: string, co
                 dispatch(getCardsTC(packsId));
             })
             .catch(e => {
-                // console.log('Error: ' + e.response.data.error || e.message);
                 const error = e.response.data.error
                     ? e.response.data.error
                     : (e.message + 'more details in console');

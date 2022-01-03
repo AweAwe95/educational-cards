@@ -15,35 +15,19 @@ const initialState = {
 
 export const cardsFilterReducer = (state: CardsFilterReducerStateType = initialState, action: CardsActionsType): CardsFilterReducerStateType => {
     switch (action.type) {
-        case 'CARD-FILTER/SET-CARD-ANSWER': {
-            return {...state, cardAnswer: action.answer};
-        }
-        case 'CARD-FILTER/SET-CARD-QUESTION': {
-            return {...state, cardQuestion: action.question};
-        }
-        case 'CARD-FILTER/SET-MIN-GRADE': {
-            return {...state, min: action.min};
-        }
-        case 'CARD-FILTER/SET-MAX-GRADE': {
-            return {...state, max: action.max};
-        }
-        case 'CARD-FILTER/SET-FIRST-NUMBER-SORT': {
-            return {...state, sortCards: {...state.sortCards, firstNumber: action.firstNumber}};
-        }
-        case 'CARD-FILTER/SET-SECOND-DESCRIPTION-SORT': {
-            return {...state, sortCards: {...state.sortCards, secondDescription: action.secondDescription}};
-        }
-        case 'CARD-FILTER/SET-PAGE': {
-            return {...state, page: action.page};
-        }
-        case 'CARD-FILTER/SET-PAGE-COUNT': {
-            return {...state, pageCount: action.pageCount};
-        }
-        case 'CARD-FILTER/SET-TOTAL-COUNT-PAGE': {
-            return {...state, cardsTotalCountPage: action.cardsTotalCountPage};
-        }
+        case 'CARD-FILTER/SET-CARD-ANSWER':
+        case 'CARD-FILTER/SET-CARD-QUESTION':
+        case 'CARD-FILTER/SET-MIN-GRADE':
+        case 'CARD-FILTER/SET-MAX-GRADE':
+        case 'CARD-FILTER/SET-PAGE':
+        case 'CARD-FILTER/SET-PAGE-COUNT':
+        case 'CARD-FILTER/SET-TOTAL-COUNT-PAGE':
         case 'CARD-FILTER/SET-IS-MY-CARD': {
-            return {...state, isMyCard: action.isMyCard};
+            return {...state, ...action.payload};
+        }
+        case 'CARD-FILTER/SET-FIRST-NUMBER-SORT':
+        case 'CARD-FILTER/SET-SECOND-DESCRIPTION-SORT':{
+            return {...state, sortCards: {...state.sortCards, ...action.payload}};
         }
         default: {
             return state;
@@ -52,34 +36,34 @@ export const cardsFilterReducer = (state: CardsFilterReducerStateType = initialS
 };
 
 export const setCardAnswer = (answer: string) => {
-    return {type: 'CARD-FILTER/SET-CARD-ANSWER', answer} as const;
+    return {type: 'CARD-FILTER/SET-CARD-ANSWER', payload: {answer}} as const;
 };
 export const setCardQuestion = (question: string) => {
-    return {type: 'CARD-FILTER/SET-CARD-QUESTION', question} as const;
+    return {type: 'CARD-FILTER/SET-CARD-QUESTION', payload: {question}} as const;
 };
 export const setMinCardGrade = (min: number) => {
-    return {type: 'CARD-FILTER/SET-MIN-GRADE', min} as const;
+    return {type: 'CARD-FILTER/SET-MIN-GRADE', payload: {min}} as const;
 };
-export const setMaxCardGrade  = (max: number) => {
-    return {type: 'CARD-FILTER/SET-MAX-GRADE', max} as const;
+export const setMaxCardGrade = (max: number) => {
+    return {type: 'CARD-FILTER/SET-MAX-GRADE', payload: {max}} as const;
 };
 export const setFirstNumberSortCards = (firstNumber: number) => {
-    return {type: 'CARD-FILTER/SET-FIRST-NUMBER-SORT', firstNumber} as const;
+    return {type: 'CARD-FILTER/SET-FIRST-NUMBER-SORT', payload: {firstNumber}} as const;
 };
 export const setSecondDescriptionSortCards = (secondDescription: string) => {
-    return {type: 'CARD-FILTER/SET-SECOND-DESCRIPTION-SORT', secondDescription} as const;
+    return {type: 'CARD-FILTER/SET-SECOND-DESCRIPTION-SORT', payload: {secondDescription}} as const;
 };
 export const setPageCards = (page: number) => {
-    return {type: 'CARD-FILTER/SET-PAGE', page} as const;
+    return {type: 'CARD-FILTER/SET-PAGE', payload: {page}} as const;
 };
 export const setPageCountCards = (pageCount: number) => {
-    return {type: 'CARD-FILTER/SET-PAGE-COUNT', pageCount} as const;
+    return {type: 'CARD-FILTER/SET-PAGE-COUNT', payload: {pageCount}} as const;
 };
 export const setTotalCountCardsPage = (cardsTotalCountPage: number) => {
-    return {type: 'CARD-FILTER/SET-TOTAL-COUNT-PAGE', cardsTotalCountPage} as const;
+    return {type: 'CARD-FILTER/SET-TOTAL-COUNT-PAGE', payload: {cardsTotalCountPage}} as const;
 };
 export const setIsMyCard = (isMyCard: boolean) => {
-    return {type: 'CARD-FILTER/SET-IS-MY-CARD', isMyCard} as const;
+    return {type: 'CARD-FILTER/SET-IS-MY-CARD', payload: {isMyCard}} as const;
 };
 
 
